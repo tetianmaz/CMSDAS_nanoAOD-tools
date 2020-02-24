@@ -1,0 +1,16 @@
+# this is a comment
+#keep *
+drop *
+keep Electron*
+keep Muon*
+keep Tau*
+keep Jet*
+keep Photon*
+keep HLT_IsoMu27
+keep ZProducer_*
+keep GenPart*
+keep LHE*
+keep Pileup*
+keep puWeight*
+keep genWeight
+keep Flag*

@@ -14,3 +14,4 @@ keep Pileup*
 keep puWeight*
 keep genWeight
 keep Flag*
+keep genTtbarId

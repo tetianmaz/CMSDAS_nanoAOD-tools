@@ -1,8 +1,8 @@
 import json
 import os
 
-#infile = 'data_2018.json'
-infile = 'mc_2018.json'
+infile = 'data_2018.json'
+#infile = 'mc_2018.json'
 
 with open(infile) as json_file:
 
@@ -28,15 +28,13 @@ with open(infile) as json_file:
       f.write("config.JobType.pluginName = 'Analysis'\n")
       f.write("config.JobType.psetName = 'PSet.py'\n")
       f.write("config.JobType.scriptExe = 'crab_script.sh'\n")
-      if 'isMC' in p:
-         if p['isMC']==True:
-            pyCfgParams = []
-            xsWeight = eval(p['xs'])/eval(p['nEvents'])
-#            theline = "config.JobType.scriptArgs = ['xsWeight={0:.12g}']\n".format(xsWeight)
- #           f.write(theline)
-            pyCfgParams.append('isMC=True')
-            pyCfgParams.append('xsWeight='+str(xsWeight))
-            f.write("config.JobType.pyCfgParams = " + str(pyCfgParams) + "\n")
+ #     if 'isMC' in p:
+  #       if p['isMC']==True:
+   #         pyCfgParams = []
+    #        pyCfgParams.append('isMC=True')
+     #       xsWeight = eval(p['xs'])/eval(p['nEvents'])
+#            pyCfgParams.append('xsWeight='+str(xsWeight))
+      #      f.write("config.JobType.pyCfgParams = " + str(pyCfgParams) + "\n")
       f.write("config.JobType.inputFiles = ['keep_and_drop.txt', 'crab_script.py', '../scripts/haddnano.py']\n")
       f.write("config.JobType.sendPythonFolder=True\n")
       f.write("\n")
@@ -49,7 +47,7 @@ with open(infile) as json_file:
       #f.write("config.Data.splitting='Automatic'\n")
       f.write("config.Data.splitting = 'FileBased'\n")
       f.write("config.Data.unitsPerJob = 1\n")
-      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/ExcitingAnalyzer_vA'\n")
+      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/ExcitingAnalyzer_vB'\n")
       f.write("config.Data.publication = False\n")
       f.write("\n")
 
@@ -60,6 +58,6 @@ with open(infile) as json_file:
       f.close()
 
       # actually submit jobs or not
-    #  os.system("crab submit -c " + f.name)
+      os.system("crab submit -c " + f.name)
       #os.system("crab submit -c " + f.name + " --dryrun")
 

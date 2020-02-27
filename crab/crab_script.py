@@ -1,3 +1,5 @@
+print "top of crab_script.py"
+
 #!/usr/bin/env python
 import os
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import * 
@@ -8,7 +10,10 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputF
 from PhysicsTools.NanoAODTools.postprocessing.examples.ZProducer import *
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import puWeight_2018
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.countHistogramsModule import countHistogramsModule
+
 from TauPOG.TauIDSFs.TauIDSFTool import TauIDSFTool
+from TauPOG.TauIDSFs.TauIDSFTool import TauFESTool
+from TauPOG.TauIDSFs.TauIDSFTool import TauESTool
 
 #testfile = [
 #   "root://cmsxrootd.fnal.gov//store/mc/RunIIAutumn18NanoAODv6/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/Nano25Oct2019_102X_upgrade2018_realistic_v20-v1/20000/9E6A9BA6-C187-0F4E-8A45-01B2F2F33E11.root"
@@ -17,23 +22,25 @@ from TauPOG.TauIDSFs.TauIDSFTool import TauIDSFTool
    #"root://xmsxrootd.fnal.gov//store/mc/RunIIAutumn18NanoAODv6/GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/Nano25Oct2019_4cores5k_102X_upgrade2018_realistic_v20-v1/250000/0C724FD3-4823-614E-A075-E48A39EBD2D3.root"
 #]
 
-cut_ = "HLT_IsoMu27"
-cut_ = cut_ + " && Sum$(Muon_pt>=30. && TMath::Abs(Muon_eta)<2.1 && Muon_tightId)>0"
-cut_ = cut_ + " && Sum$(Tau_pt>=20. && TMath::Abs(Tau_eta)<2.3 && (128&Tau_idDeepTau2017v2p1VSjet) && (128&Tau_idDeepTau2017v2p1VSe) && (8&Tau_idDeepTau2017v2p1VSmu))>0"
-cut_ = cut_ + " && Sum$(Photon_pt>=45. && TMath::Abs(Photon_eta)<2.5 && Photon_mvaID_WP90 && (Photon_electronVeto||!Photon_pixelSeed))==0"
-#cut_ = ""
+#cut_ = "HLT_IsoMu27"
+#cut_ = cut_ + " && Sum$(Muon_pt>=30. && TMath::Abs(Muon_eta)<2.1 && Muon_tightId)>0"
+#cut_ = cut_ + " && Sum$(Tau_pt>=20. && TMath::Abs(Tau_eta)<2.3 && (128&Tau_idDeepTau2017v2p1VSjet) && (128&Tau_idDeepTau2017v2p1VSe) && (8&Tau_idDeepTau2017v2p1VSmu))>0"
+#cut_ = cut_ + " && Sum$(Photon_pt>=45. && TMath::Abs(Photon_eta)<2.6 && Photon_mvaID_WP90 && (Photon_electronVeto||!Photon_pixelSeed))==0"
+#cut_ = cut_ + " && Sum$(Jet_pt>=20. && TMath::Abs(Jet_eta)<2.5 && (4&Jet_jetId) && Jet_btagDeepB>=0.7527)==0"
+#cut_ = cut_ + " && Sum$(Electron_pt>=30. && TMath::Abs(Electron_eta)<2.5 && Electron_mvaFall17V2Iso_WP80)==0"
+cut_ = ""
 
-from PSet import options
-modules_=[]
-if options.isMC:
-    modules_ = [ZProducerConstr(options.xsWeight, True), puWeight_2018()]
-else:
-   modules_ = [ZProducerConstr()]
+#from PSet import franksoptions
+#modules_=[]
+#if franksoptions.isMC==True:
+modules_ = [ZProducerConstr(True), puWeight_2018()]
+#else:
+#modules_ = [ZProducerConstr(False)]
 
 p=PostProcessor(
    outputDir = ".",
    inputFiles = inputFiles(),
-   #inputFiles = testfile,
+ #  inputFiles = testfile,
    cut = cut_,
    modules = modules_,
    provenance = True,

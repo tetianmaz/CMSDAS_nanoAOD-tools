@@ -97,6 +97,16 @@ class ZProducer(Module):
         taus_clean = filter(self.tauSel, taus)
         nTau_ = len(taus_clean)
 
+        muon_idx = -1
+        tau_idx = -1
+        for i in muons:
+           if i.pt>=30. and abs(i.eta)<2.1 and i.tightMuon:
+              for j in taus:
+                 if j.pt>=20. and abs(j.eta)<2.3:
+                    if deltaR(i.eta, i.phi, j.eta, j.phi)>=0.4:
+
+ 
+
         jets = Collection(event, "Jet")
         jets_clean = filter(self.jetSel, jets)
         nJet_ = len(jets_clean)

@@ -116,14 +116,23 @@ data['people'].append({
    'isMC': isMC_,
    'xs': '377.96', #NNLO
 })
-data['people'].append({
+'''data['people'].append({
    'name': 'TTToHadronic_ext',
    'das': '/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv6-Nano25Oct2019_102X_upgrade2018_realistic_v20_ext2-v1/NANOAODSIM',
    'nEvents': '199524000',
    'nFiles': '145',
    'isMC': isMC_,
    'xs': '377.96', ##NNLO
+})'''
+data['people'].append({
+   'name': 'QCD_Pt-20toInf_MuEnrichedPt15',
+   'das' :'/QCD_Pt-20toInf_MuEnrichedPt15_TuneCP5_13TeV_pythia8/RunIIAutumn18NanoAODv6-Nano25Oct2019_102X_upgrade2018_realistic_v20-v1/NANOAODSIM',
+   'nEvents': '22165320',
+   'nFiles': '20',
+   'isMC': isMC_,
+   'xs': '239400.0',
 })
+'''
 data['people'].append({
    'name': 'WW',
    'das': '/WW_TuneCP5_13TeV-pythia8/RunIIAutumn18NanoAODv6-Nano25Oct2019_102X_upgrade2018_realistic_v20-v1/NANOAODSIM',
@@ -195,7 +204,7 @@ data['people'].append({
    'nFiles': '8',
    'isMC': isMC_,
    'xs': '119.7', #NLO
-})
+})'''
 
 with open('mc_2018.json', 'w') as outfile:
    json.dump(data, outfile)

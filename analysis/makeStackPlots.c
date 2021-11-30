@@ -96,24 +96,18 @@ void makeStackPlots()
    runPoint(h_nBJetT, "JetProducer_nBJetT");
 
    TH1D * h_pfIsoId = new TH1D("h_pfIsoId", ";Muon_pfIsoId;events / 1", 7, -0.5, 6.5);
-   runPoint(h_pfIsoId, "Muon_pfIsoId[MuTauProducer_MuIdx]");
+   runPoint(h_pfIsoId, "Muon_pfIsoId[MuTau_MuIdx]");
 
    TH1D * h_nEle = new TH1D("h_nEle", ";# of electrons;events / 1", 4, -0.5, 3.5);
    runPoint(h_nEle, "Sum$(Electron_pt>=12. && TMath::Abs(Electron_eta)<2.5 && Electron_mvaFall17V2Iso_WPL)");
 
    TH1D * h_nEE = new TH1D("h_nEE", ";# of e^{+}e^{-} pairs;events / 1", 3, -0.5, 2.5);
-   runPoint(h_nEE, "ZProducer_EEHavePair");
+   runPoint(h_nEE, "EE_HavePair");
 
-   TH1D * h_nMu = new TH1D("h_nMu", ";# of muons;events / 1", 3, -0.5, 2.5);
+   TH1D * h_nMu = new TH1D("h_nMu", ";# of muons;events / 1", 4, -0.5, 3.5);
    runPoint(h_nMu, "Sum$(Muon_pt>=8. && TMath::Abs(Muon_eta)<2.4 && Muon_pfIsoId>=2 && Muon_mediumId)");
 
    TH1D * h_nMuMu = new TH1D("h_nMuMu", ";# of #mu^{+}#mu^{-} pairs;events / 1", 3, -0.5, 2.5);
-   runPoint(h_nMuMu, "ZProducer_MuMuHavePair");
-
-   TH1D * h_nTau = new TH1D("h_nTau", ";# of #tau_{h};events / 1", 3, -0.5, 2.5);
-   runPoint(h_nTau, "Sum$(Tau_pt>=20. && TMath::Abs(Tau_eta)<2.3 && (32&Tau_idDeepTau2017v2p1VSjet) && (8&Tau_idDeepTau2017v2p1VSmu) && (32&Tau_idDeepTau2017v2p1VSe) && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7)");
-
-   TH1D * h_nTauTau = new TH1D("h_nTauTau", ";# of #tau_{h}^{+}#tau_{h}^{-} pairs;events / 1", 3, -0.5, 2.5);
-   runPoint(h_nTauTau, "ZProducer_TauTauHavePair");
+   runPoint(h_nMuMu, "MuMu_HavePair");
 }
 

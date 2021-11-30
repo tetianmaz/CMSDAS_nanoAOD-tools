@@ -1,19 +1,28 @@
 #!/bin/bash
 
+setenv CURRENTDIR "$PWD"
+echo $CURRENTDIR
+
 cp ../scripts/haddnano.py /uscmst1b_scratch/lpc1/3DayLifetime/fojensen/
 cd /uscmst1b_scratch/lpc1/3DayLifetime/fojensen
 
-setenv CURRENTDIR pwd
-setenv OUTPUTDIR "root://cmseos.fnal.gov//store/user/fojensen/cmsdas_27112021/SingleMuon/"
+setenv OUTPUTDIR "root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/"
 
-python haddnano.py MuonA_2018.root `xrdfsls -u | grep \.root`
-python haddnano.py MuonB_2018.root `xrdfsls -u | grep \.root`
-python haddnano.py MuonC_2018.root `xrdfsls -u | grep \.root`
-python haddnano.py MuonD_2018.root `xrdfsls -u | grep \.root`
+python haddnano.py SingleMuon_2018A.root `xrdfsls -u /store/user/fojensen/cmsdas_27112021/SingleMuon/crab_cmsdas_Muon_2018A/211127_223308/0000/ | grep \.root`
+xrdcp -f SingleMuon_2018A.root $OUTPUTDIR
 
-python haddnano.py Muon_2018.root MuonA_2018.root MuonB_2018.root MuonC_2018.root MuonD_2018.root
-xrdcp -f Muon_2018.root ${OUTPUTDIR}
-rm Muon*_2018.root
+python haddnano.py SingleMuon_2018B.root `xrdfsls -u /store/user/fojensen/cmsdas_27112021/SingleMuon/crab_cmsdas_Muon_2018B/211127_174401/0000/ | grep \.root`
+xrdcp -f SingleMuon_2018B.root $OUTPUTDIR
+
+python haddnano.py SingleMuon_2018C.root `xrdfsls -u /store/user/fojensen/cmsdas_27112021/SingleMuon/crab_cmsdas_Muon_2018C/211127_174505/0000/ | grep \.root`
+xrdcp -f SingleMuon_2018C.root $OUTPUTDIR
+
+python haddnano.py SingleMuon_2018D.root `xrdfsls -u /store/user/fojensen/cmsdas_27112021/SingleMuon/crab_cmsdas_Muon_2018D/211127_174550/0000/ | grep \.root`
+xrdcp -f SingleMuon_2018D.root $OUTPUTDIR
+
+#python haddnano.py SingleMuon_2018.root SingleMuon_2018A.root SingleMuon_2018B.root SingleMuon_2018C.root SingleMuon_2018D.root
+#xrdcp -f SingleMuon_2018.root $OUTPUTDIR
+
+#rm SingleMuon*_2018.root
 
 cd ${CURRENTDIR}
-cd /uscms_data/d3/fojensen/excitedTau_06042021/CMSSW_10_6_20/src/PhysicsTools/NanoAODTools/analysis

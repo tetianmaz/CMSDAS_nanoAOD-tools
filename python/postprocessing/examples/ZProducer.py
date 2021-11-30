@@ -19,8 +19,11 @@ class ZProducer(Module):
         self.out = wrappedOutputTree
         self.out.branch("EE_HavePair", "O")
         self.out.branch("EE_Mass", "F")
+        self.out.branch("EE_Pt", "F")
         self.out.branch("MuMu_HavePair", "O")
         self.out.branch("MuMu_Mass", "F")
+        self.out.branch("MuMu_Pt", "F")
+
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
 
@@ -29,6 +32,7 @@ class ZProducer(Module):
 
         EE_HavePair = MuMu_HavePair = False
         EE_Mass = MuMu_Mass = 0
+        EE_Pt = MuMu_Pt = 0
 
         electrons = Collection(event, "Electron")
         for e1 in electrons:
@@ -37,10 +41,12 @@ class ZProducer(Module):
                     if e1.pt>=12. and abs(e1.eta)<2.5 and e1.mvaFall17V2noIso_WPL:
                         if e2.pt>=12. and abs(e2.eta)<2.5 and e2.mvaFall17V2noIso_WPL:
                             if deltaR(e1, e2)>=0.4:
-                                EE_Mass = (e1.p4()+e2.p4()).M()
-                                if EE_Mass>=50. and EE_Mass<140.:
-                                    if self.applyFilter__: return False
+                                temppt = (e1.p4()+e2.p4()).Pt()
+                                if temppt>EE_Pt:
+                                    EE_Pt = temppt
+                                    EE_Mass = (e1.p4()+e2.p4()).M()
                                     EE_HavePair = True
+                                    if MuMu_Mass>=50. and MuMu_Mass<140. and self.applyFilter__: return False
 
         muons = Collection(event, "Muon")
         for mu1 in muons:
@@ -49,15 +55,19 @@ class ZProducer(Module):
                     if mu1.pt>=8. and abs(mu1.eta)<2.4 and mu1.looseId:
                         if mu2.pt>=8. and abs(mu2.eta)<2.4 and mu2.looseId:
                             if deltaR(mu1, mu2)>=0.4:
-                                MuMu_Mass = (mu1.p4()+mu2.p4()).M()
-                                if MuMu_Mass>=50. and MuMu_Mass<140.:
-                                    if self.applyFilter__: return False
+                                temppt = (mu1.p4()+mu2.p4()).Pt()
+                                if temppt>MuMu_Pt:
+                                    MuMu_Pt = temppt
+                                    MuMu_Mass = (mu1.p4()+mu2.p4()).M()
                                     MuMu_HavePair = True
+                                    if MuMu_Mass>=50. and MuMu_Mass<140. and self.applyFilter__: return False
 
         self.out.fillBranch("EE_HavePair", EE_HavePair)
         self.out.fillBranch("EE_Mass", EE_Mass)
+        self.out.fillBranch("EE_Pt", EE_Pt)
         self.out.fillBranch("MuMu_HavePair", MuMu_HavePair)
         self.out.fillBranch("MuMu_Mass", MuMu_Mass)
+        self.out.fillBranch("MuMu_Pt", MuMu_Pt)
 
         return True
 

@@ -55,6 +55,7 @@ class JetProducer(Module):
 
         for jet in jets:
             if jet.pt>=20. and abs(jet.eta)<2.5 and (4&jet.jetId):
+                nJet = nJet+1
                 if jet.btagDeepB >= self.wp[0]:
                     nBJetL = nBJetL + 1
                     if jet.btagDeepB >= self.wp[1]:

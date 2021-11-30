@@ -197,7 +197,7 @@ void jetFake()
    TH1D * h = new TH1D("h", ";#tau_{h} p_{T} [GeV];events / 10 GeV", 10, 20., 120.);
    const TString var = "Tau_pt[MuTau_TauIdx]";
 
-   runPoint("SingleMuon_2018A", h, var);
+   runPoint("SingleMuon_2018D", h, var);
 
    const int nmc = 5;
    const double lumi = 31742.979; //https://twiki.cern.ch/CMS/RA2b13TeVProduction

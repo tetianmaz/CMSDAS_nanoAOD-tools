@@ -62,12 +62,12 @@ from PhysicsTools.NanoAODTools.postprocessing.examples.JetProducer import JetPro
 applyZVeto=False
 modules_ = [ZProducerConstr(applyZVeto), ETauProducerConstr(), MuTauProducerConstr(), TauTauProducerConstr(), JetProducerConstr(year)]
 
-isMC = False
-if isMC:
-    if len(sys.argv)==3: w = float(sys.argv[2]) #interactive
-    if len(sys.argv)==4: w = eval(str(sys.argv[3])[5:]) #crab
-    from PhysicsTools.NanoAODTools.postprocessing.examples.xsWeightProducer import xsWeightProducerConstr
-    modules_ += [xsWeightProducerConstr(w, year)]
+#isMC = True
+#if isMC:
+#    if len(sys.argv)==3: w = float(sys.argv[2]) #interactive
+#    if len(sys.argv)==4: w = eval(str(sys.argv[3])[5:]) #crab
+#    from PhysicsTools.NanoAODTools.postprocessing.examples.xsWeightProducer import xsWeightProducerConstr
+#    modules_ += [xsWeightProducerConstr(w, year)]
 
 p=PostProcessor(
     outputDir = "./",
@@ -79,7 +79,7 @@ p=PostProcessor(
     #maxEntries = 10000,
     provenance = True,
     fwkJobReport = True,
-    jsonInput = runsAndLumis(),
+    #jsonInput = runsAndLumis(),
     #outputbranchsel = "keep_and_drop.txt"
     #outputbranchsel = "keep_all.txt",
     #histFileName = "myhists.root",

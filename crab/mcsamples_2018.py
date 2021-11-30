@@ -90,6 +90,14 @@ data.append({
    'xs': '61526.7',
 })
 
+data.append({
+    'name' : 'QCD_Pt-20_MuEnrichedPt15',
+    'inputDataset': '/QCD_Pt-20_MuEnrichedPt15_TuneCP5_13TeV-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM',
+    'nEvents': '17392472',
+    'nFiles': '43',
+    'xs': '720648000.'
+})
+
 for entry in data:
     entry['year'] = '2018'
     entry['isMC'] = 'True'

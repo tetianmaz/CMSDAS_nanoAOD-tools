@@ -2,7 +2,7 @@ import json
 
 data = []
 
-"""data.append({
+data.append({
     'name': 'Electron_2018A',
     'inputDataset': '/EGamma/Run2018A-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD',
     'nFiles': '226',
@@ -24,7 +24,7 @@ data.append({
     'name': 'Electron_2018D',
     'inputDataset': '/EGamma/Run2018D-UL2018_MiniAODv2_NanoAODv9-v3/NANOAOD',
     'nFiles': '349',
-})"""
+})
 
 data.append({
     'name': 'Muon_2018A',
@@ -50,7 +50,7 @@ data.append({
     'nFiles': '194',
 })
 
-"""data.append({
+data.append({
     'name': 'Tau_2018A',
     'inputDataset': '/Tau/Run2018A-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD',
     'nFiles': '50',
@@ -72,7 +72,7 @@ data.append({
     'name': 'Tau_2018D',
     'inputDataset': '/Tau/Run2018D-UL2018_MiniAODv2_NanoAODv9-v2/NANOAOD',
     'nFiles': '153',
-})"""
+})
 
 """data.append({
     'name': 'MuonEG_2018A',

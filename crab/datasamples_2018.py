@@ -21,7 +21,7 @@ data.append({
 })
 
 data.append({
-    'name': 'Electron_2018D',
+    'name': 'EGamma_2018D',
     'inputDataset': '/EGamma/Run2018D-UL2018_MiniAODv2_NanoAODv9-v3/NANOAOD',
     'nFiles': '349',
 })

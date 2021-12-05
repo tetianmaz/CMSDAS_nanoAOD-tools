@@ -3,19 +3,19 @@ import json
 data = []
 
 data.append({
-    'name': 'Electron_2018A',
+    'name': 'EGamma_2018A',
     'inputDataset': '/EGamma/Run2018A-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD',
     'nFiles': '226',
 })
 
 data.append({
-    'name': 'Electron_2018B',
+    'name': 'EGamma_2018B',
     'inputDataset': '/EGamma/Run2018B-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD',
     'nFiles': '74',
 })
 
 data.append({
-    'name': 'Electron_2018C',
+    'name': 'EGamma_2018C',
     'inputDataset': '/EGamma/Run2018C-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD',
     'nFiles': '83',
 })
@@ -27,25 +27,25 @@ data.append({
 })
 
 data.append({
-    'name': 'Muon_2018A',
+    'name': 'SingleMuon_2018A',
     'inputDataset': '/SingleMuon/Run2018A-UL2018_MiniAODv2_NanoAODv9-v2/NANOAOD',
     'nFiles': '92',
 })
 
 data.append({
-    'name': 'Muon_2018B',
+    'name': 'SingleMuon_2018B',
     'inputDataset': '/SingleMuon/Run2018B-UL2018_MiniAODv2_NanoAODv9-v2/NANOAOD',
     'nFiles': '51',
 })
 
 data.append({
-    'name': 'Muon_2018C',
+    'name': 'SingleMuon_2018C',
     'inputDataset': '/SingleMuon/Run2018C-UL2018_MiniAODv2_NanoAODv9-v2/NANOAOD',
     'nFiles': '56',
 })
 
 data.append({
-    'name': 'Muon_2018D',
+    'name': 'SingleMuon_2018D',
     'inputDataset': '/SingleMuon/Run2018D-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD',
     'nFiles': '194',
 })

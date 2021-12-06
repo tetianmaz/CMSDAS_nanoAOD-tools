@@ -1,9 +1,10 @@
+import os
 username = "fojensen"
+#runfile = "%s/src/PhysicsTools/NanoAODTools/python/postprocessing/examples/example_postproc.py" % os.environ.get('CMSSW_BASE')
 runfile = "./python/postprocessing/examples/example_postproc.py"
 #runfile = "./crab/crab_script.py"
 
 import json
-import os
 
 #make ui
 import datetime as dt
@@ -31,10 +32,11 @@ cmdmv = "mv PhysicsTools_%s.tgz ./PhysicsTools/NanoAODTools/condor/%s" % (ui, co
 os.system(cmdmv)
 os.chdir("%s/src/PhysicsTools/NanoAODTools/condor" % os.getenv("CMSSW_BASE"))
 
-inputDatasets = ['DYJetsToTauTau_M50', 'DYJetsToEEMuMu_M50', 'TTJets', 'WJetsToLNu', 'QCD_Pt20toInf_MuEnrichedPt15']
-inputDatasets += ['SingleMuon_2018A_0', 'SingleMuon_2018A_1', 'SingleMuon_2018B_0', 'SingleMuon_2018B_1', 'SingleMuon_2018C_0', 'SingleMuon_2018C_1', 'SingleMuon_2018D_0', 'SingleMuon_2018D_1']
-inputDatasets += ['EGamma_2018A_0', 'EGamma_2018A_1', 'EGamma_2018A_2', 'EGamma_2018B_0', 'EGamma_2018B_1', 'EGamma_2018B_2', 'EGamma_2018C_0', 'EGamma_2018C_1', 'EGamma_2018C_2', 'EGamma_2018D_0', 'EGamma_2018D_1', 'EGamma_2018D_2', 'EGamma_2018D_3', 'EGamma_2018D_4']
-inputDatasets += ['Tau_2018A_0', 'Tau_2018A_1', 'Tau_2018B_0', 'Tau_2018B_1', 'Tau_2018C_0', 'Tau_2018C_1', 'Tau_2018D_0', 'Tau_2018D_1', 'Tau_2018D_2']
+inputDatasets  = ['DYJetsToTauTau_M50', 'DYJetsToEEMuMu_M50', 'TTTo2L2Nu', 'TTToSemiLeptonic', 'QCD_Mu15', 'WJetsToLNu']
+inputDatasets += ['WW', 'WZ', 'ZZ', 'ST_tW_antitop', 'ST_tW_top']
+inputDatasets += ['EGamma_2018A', 'EGamma_2018B', 'EGamma_2018C', 'EGamma_2018D']
+inputDatasets += ['SingleMuon_2018A', 'SingleMuon_2018B', 'SingleMuon_2018C', 'SingleMuon_2018D']
+inputDatasets += ['Tau_2018A', 'Tau_2018B', 'Tau_2018C', 'Tau_2018D']
 
 for dataset in inputDatasets:
     print("%s_%s" % (dataset, ui))
@@ -52,8 +54,10 @@ for dataset in inputDatasets:
     f_bash.write('tar -xvf PhysicsTools_%s.tgz\n' % ui)
     f_bash.write('cd PhysicsTools/NanoAODTools\n')
     f_bash.write('scram b\n')
-    f_bash.write('python %s root://cmseos.fnal.gov//store/user/fojensen/cmsdasskims/%s.root\n' % (runfile, dataset))
+    f_bash.write('python %s root://cmseos.fnal.gov//store/user/fojensen/cmsdas_06122021/%s.root\n' % (runfile, dataset))
     f_bash.write('xrdcp -f tree.root root://cmseos.fnal.gov//store/user/%s/TauTauLongExercise_%s/%s_Processed.root\n' % (username, ui, dataset))
+    f_bash.write('echo "now do ls"\n')
+    f_bash.write('ls\n')
     f_bash.write('echo "Ending condor job on " `date` #Date/time of end of job\n')
     f_bash.close()
 

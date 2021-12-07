@@ -32,9 +32,10 @@ cmdmv = "mv PhysicsTools_%s.tgz ./PhysicsTools/NanoAODTools/condor/%s" % (ui, co
 os.system(cmdmv)
 os.chdir("%s/src/PhysicsTools/NanoAODTools/condor" % os.getenv("CMSSW_BASE"))
 
-inputDatasets  = ['DYJetsToTauTau_M50', 'DYJetsToEEMuMu_M50', 'TTTo2L2Nu', 'TTToSemiLeptonic', 'QCD_Mu15', 'WJetsToLNu']
+inputDatasets  = ['DYJetsToTauTau_M50', 'DYJetsToEEMuMu_M50', 'QCD_Mu15', 'WJetsToLNu']
+inputDatasets += ['TTTo2L2Nu_0', 'TTTo2L2Nu_1', 'TTToSemiLeptonic_0', 'TTToSemiLeptonic_1', 'TTToSemiLeptonic_2']
 inputDatasets += ['WW', 'WZ', 'ZZ', 'ST_tW_antitop', 'ST_tW_top']
-inputDatasets += ['EGamma_2018A', 'EGamma_2018B', 'EGamma_2018C', 'EGamma_2018D']
+inputDatasets += ['EGamma_2018A_0', 'EGamma_2018A_1', 'EGamma_2018B', 'EGamma_2018C', 'EGamma_2018D_0', 'EGamma_2018D_1', 'EGamma_2018D_2']
 inputDatasets += ['SingleMuon_2018A', 'SingleMuon_2018B', 'SingleMuon_2018C', 'SingleMuon_2018D']
 inputDatasets += ['Tau_2018A', 'Tau_2018B', 'Tau_2018C', 'Tau_2018D']
 

@@ -1,6 +1,14 @@
 # this is a comment
 keep *
-#drop *
-#keep Muon*
-#keep Electron*
-#keep Jet*
+drop HTXS*
+drop FatJet*
+drop FsrPhoton*
+drop GenJetAK8*
+drop SubGenJetAK8*
+drop IsoTrack*
+drop Photon*
+drop SubJet*
+drop LowPtElectron*
+drop GenDressedLepton*
+drop GenIsolatedPhoton*
+drop SubJet*

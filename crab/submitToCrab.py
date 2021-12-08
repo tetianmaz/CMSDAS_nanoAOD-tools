@@ -1,8 +1,8 @@
 import json
 import os
 
-#infile = 'datasamples_2018.json'
-infile = 'mcsamples_2018.json'
+infile = 'datasamples_2018.json'
+#infile = 'mcsamples_2018.json'
 
 with open(infile) as json_file:
 
@@ -34,8 +34,8 @@ with open(infile) as json_file:
       else :
           scriptArgs = "['arg1=%d']" % int(p['year'])
       f.write("config.JobType.scriptArgs = %s\n" % scriptArgs)
-      #f.write("config.JobType.inputFiles = ['keep_and_drop.txt', 'crab_script.py', '../scripts/haddnano.py']\n")
-      f.write("config.JobType.inputFiles = ['crab_script.py', '../scripts/haddnano.py']\n")
+      f.write("config.JobType.inputFiles = ['keep_and_drop.txt', 'crab_script.py', '../scripts/haddnano.py']\n")
+      #f.write("config.JobType.inputFiles = ['crab_script.py', '../scripts/haddnano.py']\n")
       f.write("config.JobType.sendPythonFolder = True\n")
       f.write("config.JobType.allowUndistributedCMSSW = True\n")
       f.write("\n")
@@ -48,7 +48,7 @@ with open(infile) as json_file:
       #f.write("config.Data.splitting='Automatic'\n")
       f.write("config.Data.splitting = 'FileBased'\n")
       f.write("config.Data.unitsPerJob = 1\n")
-      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/cmsdas_06122021/'\n")
+      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/cmsdas_07122021/'\n")
       f.write("config.Data.publication = False\n")
       f.write("\n")
 

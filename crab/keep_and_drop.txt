@@ -10,5 +10,14 @@ drop Photon*
 drop SubJet*
 drop LowPtElectron*
 drop GenDressedLepton*
-drop GenIsolatedPhoton*
+drop SoftActivityJet*
 drop SubJet*
+drop L1*
+keep L1*E*
+keep L1*Mu*
+keep L1*Tau*
+drop Flag*
+drop HLT*
+keep HLT*E*
+keep HLT*Mu*
+keep HLT*Tau*

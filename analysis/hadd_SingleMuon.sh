@@ -6,7 +6,7 @@ echo $CURRENTDIR
 cp ../scripts/haddnano.py /uscmst1b_scratch/lpc1/3DayLifetime/fojensen/
 cd /uscmst1b_scratch/lpc1/3DayLifetime/fojensen
 
-setenv OUTPUTDIR "root://cmseos.fnal.gov//store/user/fojensen/cmsdas_07122021/"
+setenv OUTPUTDIR "root://cmseos.fnal.gov//store/user/fojensen/cmsdas_10122021/"
 
 python haddnano.py SingleMuon_2018A.root `xrdfsls -u | grep \.root`
 xrdcp -f SingleMuon_2018A.root $OUTPUTDIR

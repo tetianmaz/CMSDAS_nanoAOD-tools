@@ -34,35 +34,51 @@
 
 TFile * makeHists(const TString tag, const double weight=0.)
 {
-   std::cout << tag << std::endl;
-   
+   std::cout << "makeHists(): " << tag << ", " << weight << std::endl;
+
    TChain * t = new TChain("Events");
    if (tag=="SingleMuon") {
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_1228200157/SingleMuon_2018A_1_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_1228200157/SingleMuon_2018A_2_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_1228200157/SingleMuon_2018B_1_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauLongExercise_1228200322/SingleMuon_2018B_2_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauLongExercise_1228200157/SingleMuon_2018C_1_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauLongExercise_1228200157/SingleMuon_2018C_2_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauLongExercise_1228200157/SingleMuon_2018D_1_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauLongExercise_1228200157/SingleMuon_2018D_2_Processed.root");
-   } else {
-      char infile[1000];
-      sprintf(infile, "root://cmseos.fnal.gov///store/user/fojensen/ZLongExercise_1228200157/%s_Processed.root", tag.Data());
-      t->Add(infile);
+      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018A_Processed.root");
+      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018B_Processed.root");
+      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018C_Processed.root");
+      //t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018D_Processed.root");
    }
+   if (tag=="WJetsToLNu") {
+      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/WJetsToLNu_Processed.root");
+   }
+   if (tag=="TTTo2L2Nu") {
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_0_Processed.root");
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_1_Processed.root");
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_2_Processed.root");
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_3_Processed.root");
+   }
+   if (tag=="TTToSemiLeptonic") {
+      //t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_0_Processed.root");
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_1_Processed.root");
+      //t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_2_Processed.root");
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_3_Processed.root");
+   }
+   if (tag=="DYJetsToEEMuMu_M50") {
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/DYJetsToEEMuMu_M50_Processed.root");
+   }
+   if (tag=="DYJetsToTauTau_M50") {
+      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/DYJetsToTauTau_M50_Processed.root");
+   }
+   std::cout << "# of entries in the chain: " << t->GetEntries() << std::endl;
 
-   TCut baseline = "MuTau_HavePair>0 && (HLT_IsoMu24||HLT_IsoMu27)";
-   baseline = baseline && TCut("ZProducer_EEHavePair==0 && ZProducer_MuMuHavePair==0");
-   baseline = baseline && TCut("Sum$(Electron_pt>=10. && TMath::Abs(Electron_eta)<2.5 && Electron_mvaFall17V2Iso_WP90)==0");
-   baseline = baseline && TCut("Sum$(Muon_pt>=10. && TMath::Abs(Muon_eta)<2.4 && Muon_mediumId && Muon_pfIsoId>=2)==1");
+   TCut baseline = "MuTau_HavePair>0";
+   baseline = baseline && TCut("(HLT_IsoMu24||HLT_IsoMu27) && Muon_pt[MuTau_MuIdx]>=26. && Muon_tightId[MuTau_MuIdx] && Muon_pfIsoId[MuTau_MuIdx]>=4");
+   //baseline = baseline && TCut("EE_HavePair==0 && MuMu_HavePair==0");
+   baseline = baseline && TCut("Tau_decayMode[MuTau_TauIdx]!=5 && Tau_decayMode[MuTau_TauIdx]!=6 && Tau_decayMode[MuTau_TauIdx]!=7");
+   baseline = baseline && TCut("Sum$(Electron_pt>=8. && TMath::Abs(Electron_eta)<2.5 && Electron_mvaFall17V2Iso_WP90)==0");
+   baseline = baseline && TCut("Sum$(Muon_pt>=12. && TMath::Abs(Muon_eta)<2.4 && Muon_tightId && Muon_pfIsoId>=4)==1");
    baseline = baseline && TCut("MuTau_mT<40.");
-   baseline = baseline && TCut("JetProducer_nBJetT==0");
+   //baseline = baseline && TCut("JetProducer_nBJetL==0");
 
-   const TCut regionA = "MuTau_qq==-1 && Muon_pfIsoId[MuTau_MuIdx]>=4 && Muon_pfIsoId[MuTau_MuIdx]>=4 && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) &&  (32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
-   const TCut regionB = "MuTau_qq==-1 && Muon_pfIsoId[MuTau_MuIdx]>=4 && Muon_pfIsoId[MuTau_MuIdx]>=4 && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) && !(32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
-   const TCut regionC = "MuTau_qq==+1 && Muon_pfIsoId[MuTau_MuIdx]>=2 && Muon_pfIsoId[MuTau_MuIdx]<4  && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) &&  (32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
-   const TCut regionD = "MuTau_qq==+1 && Muon_pfIsoId[MuTau_MuIdx]>=2 && Muon_pfIsoId[MuTau_MuIdx]<4  && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) && !(32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
+   const TCut regionA = "MuTau_qq==-1 && (32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
+   const TCut regionB = "MuTau_qq==-1 && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) && !(32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
+   const TCut regionC = "MuTau_qq==+1 && (32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
+   const TCut regionD = "MuTau_qq==+1 && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) && !(32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
  
    char bufferA[1000], bufferB[1000], bufferC[1000], bufferD[1000];
    if (weight) {
@@ -78,26 +94,27 @@ TFile * makeHists(const TString tag, const double weight=0.)
    }
 
    const TString var = "MuTau_Mass";
-   TH1D * h_A = new TH1D("h_A_"+tag, ";#mu+#tau_{h} visible mass [GeV];events / 10 GeV", 15, 60., 210.);
-   //TH1D * h_A = new TH1D("h_A_"+tag, ";#mu+#tau_{h} visible mass [GeV];events / 10 GeV", 25, 0., 250.);
+   //TH1D * h_A = new TH1D("h_A_"+tag, ";#mu+#tau_{h} visible mass [GeV];events / 10 GeV", 15, 60., 210.);
+   TH1D * h_A = new TH1D("h_A_"+tag, ";#mu+#tau_{h} visible mass [GeV];events / 10 GeV", 25, 0., 250.);
    TH1D * h_B = (TH1D*)h_A->Clone("h_B_"+tag);
    TH1D * h_C = (TH1D*)h_A->Clone("h_C_"+tag);
    TH1D * h_D = (TH1D*)h_A->Clone("h_D_"+tag);
 
+   std::cout << "   region | yield | mc events" << std::endl;
    const int n_A = t->Project(h_A->GetName(), var, bufferA);
-   const int n_B = t->Project(h_B->GetName(), var, bufferB);
-   const int n_C = t->Project(h_C->GetName(), var, bufferC);
-   const int n_D = t->Project(h_D->GetName(), var, bufferD);
-
    const double i_A = h_A->Integral();
-   const double i_B = h_B->Integral();
-   const double i_C = h_C->Integral();
-   const double i_D = h_D->Integral();
-
-   std::cout << "   region | yield | mc events" << std::endl; 
    std::cout << "   A " << i_A << " " << n_A << std::endl;
+
+   const int n_B = t->Project(h_B->GetName(), var, bufferB);
+   const double i_B = h_B->Integral();
    std::cout << "   B " << i_B << " " << n_B << std::endl;
+   
+   const int n_C = t->Project(h_C->GetName(), var, bufferC);
+   const double i_C = h_C->Integral();
    std::cout << "   C " << i_C << " " << n_C << std::endl;
+  
+   const int n_D = t->Project(h_D->GetName(), var, bufferD);
+   const double i_D = h_D->Integral();
    std::cout << "   D " << i_D << " " << n_D << std::endl;
 
    TFile * f_out = new TFile("./outputHists/"+tag+".root", "RECREATE");
@@ -118,12 +135,13 @@ TFile * makeQCDHists()
    TH1D * data_C = (TH1D*)f_data->Get("h_C");
    TH1D * data_D = (TH1D*)f_data->Get("h_D");
 
-   const int nmc = 4;
+   const int nmc = 5;
    TString mctags[nmc];
    mctags[0] = "WJetsToLNu";
-   mctags[1] = "TTJets";
-   mctags[2] = "DYJetsToEEMuMu_M50";
-   mctags[3] = "DYJetsToTauTau_M50";
+   mctags[1] = "TTTo2L2Nu";
+   mctags[2] = "TTToSemiLeptonic";
+   mctags[3] = "DYJetsToEEMuMu_M50";
+   mctags[4] = "DYJetsToTauTau_M50";
 
    TH1D *h_A[nmc], *h_B[nmc], *h_C[nmc], *h_D[nmc];
    for (int i = 0; i < nmc; ++i) {
@@ -165,8 +183,8 @@ TFile * makeQCDHists()
    h_CoD->Draw("PE");
    h_CoD->GetYaxis()->SetTitle("C / D");
    h_CoD->SetStats(0);
-   h_CoD->SetMinimum(0.);
-   h_CoD->SetMaximum(0.65);
+   //h_CoD->SetMinimum(0.);
+   //h_CoD->SetMaximum(0.65);
    h_CoD->SetMarkerStyle(20);
    c->SaveAs("./plots/CoD.pdf");
  
@@ -182,7 +200,8 @@ TFile * makeQCDHists()
 
 void plotControlRegions()
 {
-   const double ymin = 10.;
+   std::cout << "plotControlRegions()" << std::endl;
+   const double ymin = 1.e2;
    const double ymax = 1.e6;
 
    TFile *f_SingleMuon = TFile::Open("./outputHists/SingleMuon.root");
@@ -193,32 +212,35 @@ void plotControlRegions()
    h_SingleMuon_C->SetMarkerStyle(20);
    h_SingleMuon_D->SetMarkerStyle(20);
 
-   int nmc = 4;
+   int nmc = 5;
    double xsweight[nmc];
    const double lumi = 59725.419;
-   xsweight[0] = lumi * 61334.9 / 56999392.;
-   xsweight[1] = lumi * 831.76 / 148740576.;
-   xsweight[2] = lumi * 6025.2 / 104017741.;
-   xsweight[3] = lumi * 6025.2 / 104017741.;
-
-   TString mctags[nmc];
-   mctags[0] = "WJetsToLNu";
-   mctags[1] = "TTJets";
-   mctags[2] = "DYJetsToEEMuMu_M50";
-   mctags[3] = "DYJetsToTauTau_M50";
+   xsweight[0] = lumi * 61334.9 / 81051269.;
+   xsweight[1] = lumi * 87.31 / 145020000.;
+   xsweight[2] = lumi * 365.34 / 476408000.;
+   xsweight[3] = lumi * 6025.2 / 197649078.;
+   xsweight[4] = lumi * 6025.2 / 197649078.;
  
    TString labels[nmc];
    labels[0] = "W#rightarrowl#nu";
-   labels[1] = "t#bar{t}";
-   labels[2] = "Z#rightarrowee,#mu#mu";
-   labels[3] = "Z#rightarrow#tau#tau";
-   // is the "signal" the correct gen matching, i.e. do we only want Z->tau_htau_mu for signal? or all Z->tautau, including any potential crossover fakes
+   labels[1] = "t#bar{t}#rightarrow2l2#nu";
+   labels[2] = "t#bar{t}#rightarrow1l1#nu2q";
+   labels[3] = "Z#rightarrowee,#mu#mu";
+   labels[4] = "Z#rightarrow#tau#tau";
+ 
+   TString mctags[nmc];
+   mctags[0] = "WJetsToLNu";
+   mctags[1] = "TTTo2L2Nu";
+   mctags[2] = "TTToSemiLeptonic";
+   mctags[3] = "DYJetsToEEMuMu_M50";
+   mctags[4] = "DYJetsToTauTau_M50";
 
    int colz[nmc];
-   colz[0] = 2;
-   colz[1] = 3;
-   colz[2] = 4;
-   colz[3] = 5;
+   colz[0] = 5;
+   colz[1] = 6;
+   colz[2] = 7;
+   colz[3] = 8;
+   colz[4] = 9;
 
    TH1D *h_mc_B[nmc], *h_mc_C[nmc], *h_mc_D[nmc];
    for (int i = 0; i < nmc; ++i) {
@@ -230,10 +252,6 @@ void plotControlRegions()
       h_mc_C[i]->SetFillColor(colz[i]);
       h_mc_D[i]->SetFillColor(colz[i]);
    }
-
-   std::cout << "WJetsToLNu D: " << std::endl;;
-   std::cout << " GetEntries: " << h_mc_D[0]->GetEntries() << std::endl;
-   std::cout << " Integral: " << h_mc_D[0]->Integral() << std::endl;
 
    THStack * s_B = new THStack("s_B", "");
    s_B->SetTitle("B;#mu+#tau_{h} visible mass [GeV];events / 10 GeV");
@@ -247,9 +265,9 @@ void plotControlRegions()
    s_D->SetTitle("D;#mu+#tau_{h} visible mass [GeV];events / 10 GeV");
    for (int i = 0; i < nmc; ++i) s_D->Add(h_mc_D[i]);
 
-   TLegend * l = new TLegend(0.5, 0.7, 0.875, 0.875);
+   TLegend * l = new TLegend(0.225, 0.75, 0.875, 0.875);
    l->SetBorderSize(0);
-   l->SetNColumns(2);
+   l->SetNColumns(3);
    for (int i = 0; i < nmc; ++i) l->AddEntry(h_mc_B[i], labels[i], "F");
    l->AddEntry(h_SingleMuon_B, "data", "P");
 
@@ -285,33 +303,38 @@ void plotControlRegions()
 
 void yields_ZTauTau()
 {
-   const double ymin = 1.;
+   const double ymin = 1.e2;
    const double ymax = 1.e6;
 
-   int nmc = 4;
+   int nmc = 5;
    double xsweight[nmc];
    const double lumi = 59725.419;
-   xsweight[0] = lumi * 61334.9 / 56999392.;
-   xsweight[1] = lumi * 831.76 / 148740576.;
-   xsweight[2] = lumi * 6025.2 / 104017741.;
-   xsweight[3] = lumi * 6025.2 / 104017741.;
+   xsweight[0] = lumi * 61334.9 / 81051269.;
+   xsweight[1] = lumi * 87.31 / 145020000.;
+   xsweight[2] = lumi * 365.34 / 476408000.;
+   xsweight[3] = lumi * 6025.2 / 197649078.;
+   xsweight[4] = lumi * 6025.2 / 197649078.;
 
    TString mctags[nmc];
    mctags[0] = "WJetsToLNu";
-   mctags[1] = "TTJets";
-   mctags[2] = "DYJetsToEEMuMu_M50";
-   mctags[3] = "DYJetsToTauTau_M50";
-   
+   mctags[1] = "TTTo2L2Nu";
+   mctags[2] = "TTToSemiLeptonic";
+   mctags[3] = "DYJetsToEEMuMu_M50";
+   mctags[4] = "DYJetsToTauTau_M50";
+
    TString labels[nmc];
    labels[0] = "W#rightarrowl#nu";
-   labels[1] = "t#bar{t}";
-   labels[2] = "Z#rightarrowee,#mu#mu";
-   labels[3] = "Z#rightarrow#tau#tau"; //correct gen matching?
+   labels[1] = "t#bar{t}#rightarrow2l2#nu";
+   labels[2] = "t#bar{t}#rightarrow1l1nu2q";
+   labels[3] = "Z#rightarrowee,#mu#mu";
+   labels[4] = "Z#rightarrow#tau#tau";
+   
    int colz[nmc];
-   colz[0] = 2;
-   colz[1] = 3;
-   colz[2] = 4;
-   colz[3] = 5;
+   colz[0] = 5;
+   colz[1] = 6;
+   colz[2] = 7;
+   colz[3] = 8;
+   colz[4] = 9;
 
    makeHists("SingleMuon");
    TFile *f_SingleMuon = TFile::Open("./outputHists/SingleMuon.root");
@@ -330,9 +353,6 @@ void yields_ZTauTau()
       h[i]->SetFillColor(colz[i]);
       samplesum += h[i]->Integral();
    }
-   //for (int i = 0; i <= h[0]->GetNbinsX(); ++i) {
-   //   std::cout << "i: " << i << "; " << h[0]->GetBinLowEdge(i) << std::endl;
-   //}
 
    makeQCDHists();
    TFile * f_QCD = TFile::Open("./outputHists/QCD.root");
@@ -367,10 +387,11 @@ void yields_ZTauTau()
    s->Draw("HIST, SAME");
    s->SetMinimum(ymin);
    s->SetMaximum(ymax);
+   h_SingleMuon->Draw("P, E, SAME");
 
-   TLegend * l = new TLegend(0.4, 0.7, 0.875, 0.875);
+   TLegend * l = new TLegend(0.225, 0.75, 0.875, 0.875);
    l->SetBorderSize(0);
-   l->SetNColumns(2);
+   l->SetNColumns(3);
    for (int i = 0; i < nmc; ++i) l->AddEntry(h[i], labels[i], "F");
    l->AddEntry(h_QCD, "multijet", "F");
    l->AddEntry(h_SingleMuon, "data", "P");

@@ -28,7 +28,7 @@ for arg in sys.argv:
 year=2018
 
 #testfile = [
-#    "root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/WJetsToLNu__AE18A33F-9CF5-BC4E-A1E9-46F7BF382AF1.root"
+    #"root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/WJetsToLNu__AE18A33F-9CF5-BC4E-A1E9-46F7BF382AF1.root"
     #"root://cmsxrootd.fnal.gov///store/mc/RunIISummer20UL18NanoAODv9/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/280000/AE18A33F-9CF5-BC4E-A1E9-46F7BF382AF1.root"
     #"root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/DYJetsToLL__7B7D90CB-14EF-B749-B4D7-7C413FE3CCC1.root"
     #"root://cmsxrootd.fnal.gov///store/mc/RunIISummer20UL18NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/280000/7B7D90CB-14EF-B749-B4D7-7C413FE3CCC1.root"
@@ -37,11 +37,11 @@ year=2018
 #]
 #print testfile
 
+cut_ETau   = "Sum$(Tau_pt>=20.0 && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=1 && Sum$(TMath::Abs(Electron_eta)<2.5 && Electron_pt>=12. && (Electron_mvaFall17V2Iso_WPL||Electron_mvaFall17V2noIso_WPL))>0"
+cut_MuTau  = "Sum$(Tau_pt>=20.0 && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=1 && Sum$(TMath::Abs(Muon_eta)<2.4 && Muon_pt>=8. && Muon_looseId)>0"
 cut_TauTau = "Sum$(Tau_pt>=20.0 && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=2"
 cut_Tau    = "Sum$(Tau_pt>=180. && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=1"
 cut_TauMET = "Sum$(Tau_pt>=50.0 && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=1 && MET_pt>=90."
-cut_ETau   = "Sum$(Tau_pt>=20.0 && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=1 && Sum$(TMath::Abs(Electron_eta)<2.5 && Electron_pt>=12. && (Electron_mvaFall17V2Iso_WPL||Electron_mvaFall17V2noIso_WPL))>0"
-cut_MuTau  = "Sum$(Tau_pt>=20.0 && TMath::Abs(Tau_eta)<2.3 && Tau_decayMode!=5 && Tau_decayMode!=6 && Tau_decayMode!=7 && (1&Tau_idDeepTau2017v2p1VSjet) && (1&Tau_idDeepTau2017v2p1VSmu) && (1&Tau_idDeepTau2017v2p1VSe))>=1 && Sum$(TMath::Abs(Muon_eta)<2.4 && Muon_pt>=8. && Muon_looseId)>0"
 #cut_EMu    = "Sum$(TMath::Abs(Electron_eta)<2.5 && Electron_pt>=12. && (Electron_mvaFall17V2Iso_WPL||Electron_mvaFall17V2noIso_WPL))>0 && Sum$(TMath::Abs(Muon_eta)<2.4 && Muon_pt>=8. && Muon_looseId)>0"
 #https://twiki.cern.ch/CMS/MissingETOptionalFiltersRun2
 cut_Flag16   = "Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_eeBadScFilter"
@@ -79,7 +79,7 @@ p=PostProcessor(
     #maxEntries = 10000,
     provenance = True,
     fwkJobReport = True,
-    jsonInput = runsAndLumis(),
+    #jsonInput = runsAndLumis(),
     outputbranchsel = "keep_and_drop.txt"
     #outputbranchsel = "keep_all.txt",
     #histFileName = "myhists.root",

@@ -7,7 +7,7 @@ cp ../scripts/haddnano.py /uscmst1b_scratch/lpc1/3DayLifetime/fojensen/
 cp splitDY.c /uscmst1b_scratch/lpc1/3DayLifetime/fojensen/
 cd /uscmst1b_scratch/lpc1/3DayLifetime/fojensen
 
-setenv OUTPUTDIR "root://cmseos.fnal.gov//store/user/fojensen/cmsdas_07122021/"
+setenv OUTPUTDIR "root://cmseos.fnal.gov//store/user/fojensen/cmsdas_10122021/"
 
 python haddnano.py DYJetsToLL_M50.0.root `xrdfsls -u | grep \.root`
 root -l -q 'splitDY.c+("DYJetsToLL_M50.0.root", "DYJetsToEEMuMu_M50.0.root", "DYJetsToTauTau_M50.0.root")'

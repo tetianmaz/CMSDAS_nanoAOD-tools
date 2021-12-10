@@ -1,8 +1,8 @@
 import json
 import os
 
-infile = 'datasamples_2018.json'
-#infile = 'mcsamples_2018.json'
+#infile = 'datasamples_2018.json'
+infile = 'mcsamples_2018.json'
 
 with open(infile) as json_file:
 
@@ -48,7 +48,7 @@ with open(infile) as json_file:
       #f.write("config.Data.splitting='Automatic'\n")
       f.write("config.Data.splitting = 'FileBased'\n")
       f.write("config.Data.unitsPerJob = 1\n")
-      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/cmsdas_07122021/'\n")
+      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/cmsdas_10122021/'\n")
       f.write("config.Data.publication = False\n")
       f.write("\n")
 

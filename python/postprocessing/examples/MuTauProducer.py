@@ -91,6 +91,7 @@ class MuTauProducer(Module):
                                  mT = 2. * event.MET_pt * mu.pt * (1.-math.cos(deltaPhi(event.MET_phi, mu.phi)))
                                  mT = math.sqrt(mT)
 
+        #if HavePair==0: return False
         self.out.fillBranch("MuTau_HavePair", HavePair)
         self.out.fillBranch("MuTau_qq", qq)
         self.out.fillBranch("MuTau_MuIdx", MuIdx)

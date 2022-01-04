@@ -1,8 +1,8 @@
 import os
 username = "fojensen"
 #runfile = "%s/src/PhysicsTools/NanoAODTools/python/postprocessing/examples/example_postproc.py" % os.environ.get('CMSSW_BASE')
-runfile = "./python/postprocessing/examples/example_postproc.py"
-#runfile = "./crab/crab_script.py"
+#runfile = "./python/postprocessing/examples/example_postproc.py"
+runfile = "./crab/crab_script.py"
 
 import json
 
@@ -33,11 +33,11 @@ os.system(cmdmv)
 os.chdir("%s/src/PhysicsTools/NanoAODTools/condor" % os.getenv("CMSSW_BASE"))
 
 inputDatasets  = ['DYJetsToTauTau_M50', 'DYJetsToEEMuMu_M50', 'QCD_Mu15', 'WJetsToLNu']
-inputDatasets += ['TTTo2L2Nu_0', 'TTTo2L2Nu_1', 'TTToSemiLeptonic_0', 'TTToSemiLeptonic_1', 'TTToSemiLeptonic_2']
+inputDatasets += ['TTToSemiLeptonic_0', 'TTToSemiLeptonic_1', 'TTToSemiLeptonic_2', 'TTTo2L2Nu']
 inputDatasets += ['WW', 'WZ', 'ZZ', 'ST_tW_antitop', 'ST_tW_top']
-inputDatasets += ['EGamma_2018A_0', 'EGamma_2018A_1', 'EGamma_2018B', 'EGamma_2018C', 'EGamma_2018D_0', 'EGamma_2018D_1', 'EGamma_2018D_2']
-inputDatasets += ['SingleMuon_2018A', 'SingleMuon_2018B', 'SingleMuon_2018C', 'SingleMuon_2018D']
-inputDatasets += ['Tau_2018A', 'Tau_2018B', 'Tau_2018C', 'Tau_2018D']
+inputDatasets += ['EGamma_2018A_0', 'EGamma_2018A_1', 'EGamma_2018B', 'EGamma_2018C', 'EGamma_2018D_0', 'EGamma_2018D_1']
+inputDatasets += ['SingleMuon_2018A', 'SingleMuon_2018B', 'SingleMuon_2018C', 'SingleMuon_2018D_0', 'SingleMuon_2018D_1']
+inputDatasets += ['Tau_2018A', 'Tau_2018B', 'Tau_2018C', 'Tau_2018D_0', "Tau_2018D_1"]
 
 for dataset in inputDatasets:
     print("%s_%s" % (dataset, ui))
@@ -55,7 +55,7 @@ for dataset in inputDatasets:
     f_bash.write('tar -xvf PhysicsTools_%s.tgz\n' % ui)
     f_bash.write('cd PhysicsTools/NanoAODTools\n')
     f_bash.write('scram b\n')
-    f_bash.write('python %s root://cmseos.fnal.gov//store/user/fojensen/cmsdas_06122021/%s.root\n' % (runfile, dataset))
+    f_bash.write('python %s root://cmseos.fnal.gov//store/user/fojensen/cmsdas_10122021/%s.root\n' % (runfile, dataset))
     f_bash.write('xrdcp -f tree.root root://cmseos.fnal.gov//store/user/%s/TauTauLongExercise_%s/%s_Processed.root\n' % (username, ui, dataset))
     f_bash.write('echo "now do ls"\n')
     f_bash.write('ls\n')
@@ -67,6 +67,7 @@ for dataset in inputDatasets:
     f_jdl.write('Executable = %s/condor_%s_%s.sh\n' % (condordir, dataset, ui))
     f_jdl.write('should_transfer_files = YES\n')
     f_jdl.write('when_to_transfer_output = ON_EXIT\n')
+    f_jdl.write('request_memory = 5000\n')
     f_jdl.write('Output = %s/condor_%s_%s.stdout\n' % (condordir, dataset, ui))
     f_jdl.write('Error = %s/condor_%s_%s.stderr\n' % (condordir, dataset, ui))
     f_jdl.write('Log = %s/condor_%s_%s.log\n' % (condordir, dataset, ui))

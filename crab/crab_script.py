@@ -28,12 +28,13 @@ for arg in sys.argv:
 year=2018
 
 #testfile = [
-    #"root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/WJetsToLNu__AE18A33F-9CF5-BC4E-A1E9-46F7BF382AF1.root"
+#    "root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/WJetsToLNu__AE18A33F-9CF5-BC4E-A1E9-46F7BF382AF1.root"
     #"root://cmsxrootd.fnal.gov///store/mc/RunIISummer20UL18NanoAODv9/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/280000/AE18A33F-9CF5-BC4E-A1E9-46F7BF382AF1.root"
     #"root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/DYJetsToLL__7B7D90CB-14EF-B749-B4D7-7C413FE3CCC1.root"
     #"root://cmsxrootd.fnal.gov///store/mc/RunIISummer20UL18NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/280000/7B7D90CB-14EF-B749-B4D7-7C413FE3CCC1.root"
     #"root://cmseos.fnal.gov//store/user/cmsdas/2022/short_exercises/Tau/TTTo2L2Nu__1656732C-0CD4-F54B-B39D-19CA08E18A77.root"
     #"root://cmsxrootd.fnal.gov///store/mc/RunIISummer20UL18NanoAODv9/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/130000/1656732C-0CD4-F54B-B39D-19CA08E18A77.root",
+    #"root://cmseos.fnal.gov//store/user/fojensen/cmsdas_10122021/Tau_2018B.root" 
 #]
 #print testfile
 
@@ -51,16 +52,17 @@ if year==2016:
 elif year==2017 or year==2018:
     cut_Flag = cut_Flag1718
 cut_ = "("+ cut_ETau + " || " + cut_MuTau + " || " + cut_TauTau + " || " + cut_Tau + " || " + cut_TauMET + ") &&" + cut_Flag
-print cut_
+#print cut_
 
-#from PhysicsTools.NanoAODTools.postprocessing.examples.ZProducer import ZProducerConstr
-#from PhysicsTools.NanoAODTools.postprocessing.examples.ETauProducer import ETauProducerConstr
-#from PhysicsTools.NanoAODTools.postprocessing.examples.MuTauProducer import MuTauProducerConstr
-#from PhysicsTools.NanoAODTools.postprocessing.examples.TauTauProducer import TauTauProducerConstr
-#from PhysicsTools.NanoAODTools.postprocessing.examples.JetProducer import JetProducerConstr
+from PhysicsTools.NanoAODTools.postprocessing.examples.ZProducer import ZProducerConstr
+from PhysicsTools.NanoAODTools.postprocessing.examples.ETauProducer import ETauProducerConstr
+from PhysicsTools.NanoAODTools.postprocessing.examples.MuTauProducer import MuTauProducerConstr
+from PhysicsTools.NanoAODTools.postprocessing.examples.TauTauProducer import TauTauProducerConstr
+from PhysicsTools.NanoAODTools.postprocessing.examples.JetProducer import JetProducerConstr
 
-#applyZVeto=False
-#modules_ = [ZProducerConstr(applyZVeto), ETauProducerConstr(), MuTauProducerConstr(), TauTauProducerConstr(), JetProducerConstr(year)]
+applyZVeto=False
+modules_ = [ZProducerConstr(applyZVeto), ETauProducerConstr(), MuTauProducerConstr(), TauTauProducerConstr(), JetProducerConstr(year)]
+#modules_ = [ETauProducerConstr()]
 
 #isMC = True
 #if isMC:
@@ -71,16 +73,17 @@ print cut_
 
 p=PostProcessor(
     outputDir = "./",
-    inputFiles = inputFiles(),
-    #inputFiles = [sys.argv[1]],
+    #inputFiles = inputFiles(),
+    inputFiles = [sys.argv[1]],
     #inputFiles = testfile,
-    cut = cut_,
-    #modules = modules_,
-    #maxEntries = 10000,
+    #cut = cut_,
+    modules = modules_,
+    #maxEntries = 100000,
+    friend = True,
     provenance = True,
     fwkJobReport = True,
     #jsonInput = runsAndLumis(),
-    outputbranchsel = "keep_and_drop.txt"
+    #outputbranchsel = "keep_and_drop.txt"
     #outputbranchsel = "keep_all.txt",
     #histFileName = "myhists.root",
     #histDirName = "histdir"    

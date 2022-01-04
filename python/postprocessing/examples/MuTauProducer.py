@@ -23,8 +23,6 @@ class MuTauProducer(Module):
         self.out.branch("MuTau_mT", "F")
         self.out.branch("MuTau_Mass", "F")
         self.out.branch("MuTau_Pt", "F")
-        self.out.branch("MuTau_MuTauDR", "F")
-        self.out.branch("MuTau_MuTauDPhi", "F")
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
     def analyze(self, event):
@@ -38,8 +36,6 @@ class MuTauProducer(Module):
         mT = 0
         Mass = 0
         Pt = 0
-        MuTauDR = 0
-        MuTauDPhi = 0
 
         #https://cms-nanoaod-integration.web.cern.ch/integration/master-102X/mc102X_doc.html
         muons = Collection(event, "Muon")
@@ -83,8 +79,6 @@ class MuTauProducer(Module):
                                  TauIdx = j
                                  maxtauiso = tau.idDeepTau2017v2p1VSjet
                                  maxmuiso = mu.pfIsoId
-                                 MuTauDR = deltaR(mu, tau)
-                                 MuTauDPhi = abs(deltaPhi(mu, tau))
                                  qq = mu.charge*tau.charge
                                  Mass = (mu.p4()+tau.p4()).M()
                                  Pt =  (mu.p4()+tau.p4()).Pt()
@@ -96,12 +90,10 @@ class MuTauProducer(Module):
         self.out.fillBranch("MuTau_qq", qq)
         self.out.fillBranch("MuTau_MuIdx", MuIdx)
         self.out.fillBranch("MuTau_TauIdx", TauIdx)
-        self.out.fillBranch("MuTau_mT", mT)
         self.out.fillBranch("MuTau_Mass", Mass)
         self.out.fillBranch("MuTau_Pt", Pt)
-        self.out.fillBranch("MuTau_MuTauDR", MuTauDR)
-        self.out.fillBranch("MuTau_MuTauDPhi", MuTauDPhi)
- 
+        self.out.fillBranch("MuTau_mT", mT)
+
         return True, MuIdx, TauIdx
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed

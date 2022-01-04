@@ -5,8 +5,6 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection 
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.postprocessing.tools import deltaPhi, deltaR
-from ROOT import TLorentzVector
-#from ROOT import TVector3
 import math
 
 class ETauProducer(Module):
@@ -22,11 +20,9 @@ class ETauProducer(Module):
         self.out.branch("ETau_qq", "I")
         self.out.branch("ETau_EIdx", "I")
         self.out.branch("ETau_TauIdx", "I")
-        self.out.branch("ETau_mT", "F")
         self.out.branch("ETau_Mass", "F")
         self.out.branch("ETau_Pt", "F")
-        self.out.branch("ETau_ETauDR", "F")
-        self.out.branch("ETau_ETauDPhi", "F")
+        self.out.branch("ETau_mT", "F")
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
     def analyze(self, event):
@@ -37,11 +33,9 @@ class ETauProducer(Module):
         qq = 0
         EIdx = -1
         TauIdx = -1
-        mT = 0
         Mass = 0
         Pt = 0
-        ETauDR = 0
-        ETauDPhi = 0
+        mT = 0
 
         #https://cms-nanoaod-integration.web.cern.ch/integration/master-102X/mc102X_doc.html
         electrons = Collection(event, "Electron")
@@ -79,23 +73,20 @@ class ETauProducer(Module):
                                  TauIdx = j
                                  maxtauiso = tau.idDeepTau2017v2p1VSjet
                                  maxeid = e.mvaFall17V2Iso
-                                 ETauDR = deltaR(e, tau)
-                                 ETauDPhi = abs(deltaPhi(e, tau))
                                  qq = e.charge*tau.charge
                                  Mass = (e.p4()+tau.p4()).M()
                                  Pt = (e.p4()+tau.p4()).Pt()
                                  mT = 2. * event.MET_pt * e.pt * (1.-math.cos(deltaPhi(event.MET_phi, e.phi)))
                                  mT = math.sqrt(mT)
 
+        #if HavePair==0: return False
         self.out.fillBranch("ETau_HavePair", HavePair)
         self.out.fillBranch("ETau_qq", qq)
         self.out.fillBranch("ETau_EIdx", EIdx)
         self.out.fillBranch("ETau_TauIdx", TauIdx)
-        self.out.fillBranch("ETau_mT", mT)
         self.out.fillBranch("ETau_Mass", Mass)
         self.out.fillBranch("ETau_Pt", Pt)
-        self.out.fillBranch("ETau_ETauDR", ETauDR)
-        self.out.fillBranch("ETau_ETauDPhi", ETauDPhi)
+        self.out.fillBranch("ETau_mT", mT)
 
         return True, EIdx, TauIdx
 

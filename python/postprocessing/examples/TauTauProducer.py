@@ -4,7 +4,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection 
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
-from PhysicsTools.NanoAODTools.postprocessing.tools import deltaR
+from PhysicsTools.NanoAODTools.postprocessing.tools import deltaPhi, deltaR
 import math
 import numpy
 
@@ -21,10 +21,9 @@ class TauTauProducer(Module):
         self.out.branch("TauTau_qq", "I")
         self.out.branch("TauTau_Tau0Idx", "I")
         self.out.branch("TauTau_Tau1Idx", "I")
-        self.out.branch("TauTau_mT", "F")
         self.out.branch("TauTau_Mass", "F")
         self.out.branch("TauTau_Pt", "F")
-        self.out.branch("TauTau_TauTauDR", "F")
+        self.out.branch("TauTau_mT", "F")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -37,11 +36,9 @@ class TauTauProducer(Module):
         qq = 0
         Tau0Idx = -1
         Tau1Idx = -1
-        mT0 = mT1 = 0
         Mass = 0
         Pt = 0
-        TauTauDR = 0
-        HaveTriplet = 0
+        mT = 0
  
         #https://cms-nanoaod-integration.web.cern.ch/integration/master-102X/mc102X_doc.html
         taus = Collection(event, "Tau")
@@ -66,7 +63,6 @@ class TauTauProducer(Module):
         goodTauIdx = sorted(goodTauIdx, key=lambda i: (-i[1], i[0]))
 
         miniso = 0
-        maxphotonpt = 0
         for i, ii in enumerate(goodTauIdx):
             for j, jj in enumerate(goodTauIdx):
                 if i>j:
@@ -79,12 +75,16 @@ class TauTauProducer(Module):
                         tempminiso = min(tau0.idDeepTau2017v2p1VSjet, tau1.idDeepTau2017v2p1VSjet)
                         if tempminiso > miniso: #we want to choose the pair with the maximum minimum
                             miniso = tempminiso
-                            TauTauDR = deltaR(tau0, tau1)
                             qq = tau0.charge*tau1.charge
                             Tau0Idx = ii[0]
                             Tau1Idx = jj[0]
                             Mass = (tau0.p4()+tau1.p4()).M()
                             Pt =   (tau0.p4()+tau1.p4()).Pt()
+                            if tau0.pt>tau1.pt:
+                                mT = 2. * event.MET_pt * tau0.pt * (1.-math.cos(deltaPhi(event.MET_phi, tau0.phi)))
+                            else:
+                                mT = 2. * event.MET_pt * tau1.pt * (1.-math.cos(deltaPhi(event.MET_phi, tau1.phi)))
+                            mT = math.sqrt(mT)
 
         #if HavePair:
         #    tau0 = taus[Tau0Idx]
@@ -92,12 +92,14 @@ class TauTauProducer(Module):
         #    print ("         selected pair: (%d, %f), (%d, %f)" % (tau0.idDeepTau2017v2p1VSjet, tau0.pt, tau1.idDeepTau2017v2p1VSjet, tau1.pt))
         #    if HavePair>1: print("            !!!multiple pairs!!!")
 
+        #if HavePair==0: return False
         self.out.fillBranch("TauTau_HavePair", HavePair)
         self.out.fillBranch("TauTau_qq", qq)
         self.out.fillBranch("TauTau_Tau0Idx", Tau0Idx)
         self.out.fillBranch("TauTau_Tau1Idx", Tau1Idx)
         self.out.fillBranch("TauTau_Mass", Mass)
         self.out.fillBranch("TauTau_Pt", Pt)
+        self.out.fillBranch("TauTau_mT", mT)
         return True, Tau0Idx, Tau1Idx
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed

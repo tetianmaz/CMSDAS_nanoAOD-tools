@@ -183,7 +183,7 @@ TFile * makeQCDHists()
    h_CoD->Draw("PE");
    h_CoD->GetYaxis()->SetTitle("C / D");
    h_CoD->SetStats(0);
-   //h_CoD->SetMinimum(0.);
+   h_CoD->SetMinimum(0.);
    //h_CoD->SetMaximum(0.65);
    h_CoD->SetMarkerStyle(20);
    c->SaveAs("./plots/CoD.pdf");
@@ -358,7 +358,7 @@ void yields_ZTauTau()
    TFile * f_QCD = TFile::Open("./outputHists/QCD.root");
    TH1D * h_QCD = (TH1D*)f_QCD->Get("h_A");
    samplesum += h_QCD->Integral();
-   h_QCD->SetFillColor(6);   
+   h_QCD->SetFillColor(4);
 
    for (int i = 0; i < nmc; ++i) {
       std::cout << mctags[i] << std::endl;

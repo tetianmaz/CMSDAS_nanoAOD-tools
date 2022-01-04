@@ -53,10 +53,13 @@ class PostProcessor:
         self.histFileName = histFileName
         self.histDirName = histDirName
         # 2^63 - 1, largest int64
+        print("# 2^63 - 1, largest int64")
         self.maxEntries = maxEntries if maxEntries else 9223372036854775807
         self.firstEntry = firstEntry
         self.prefetch = prefetch  # prefetch files to TMPDIR using xrdcp
+        print("# prefetch files to TMPDIR using xrdcp")
         # keep cached files across runs (it's then up to you to clean up the temp)
+        print("# keep cached files across runs (it's then up to you to clean up the temp)")
         self.longTermCache = longTermCache
 
     def prefetchFile(self, fname, verbose=True):
@@ -127,6 +130,7 @@ class PostProcessor:
                     "Running with --noout and no modules does nothing!")
 
         # Open histogram file, if desired
+        print("# Open histogram file, if desired")
         if (self.histFileName is not None and self.histDirName is None) or (self.histFileName is None and self.histDirName is not None):
             raise RuntimeError(
                 "Must specify both histogram file and histogram directory!")
@@ -153,6 +157,7 @@ class PostProcessor:
                 fname, ffnames = fnames[0], fnames[1:]
 
             # open input file
+            print("# open input file")
             if self.prefetch:
                 ftoread, toBeDeleted = self.prefetchFile(fname)
                 inFile = ROOT.TFile.Open(ftoread)
@@ -160,6 +165,7 @@ class PostProcessor:
                 inFile = ROOT.TFile.Open(fname)
 
             # get input tree
+            print("# get input tree")
             inTree = inFile.Get("Events")
             if inTree is None:
                 inTree = inFile.Get("Friends")
@@ -167,6 +173,7 @@ class PostProcessor:
                            self.firstEntry, self.maxEntries)
             totEntriesRead += nEntries
             # pre-skimming
+            print("# pre-skimming")
             elist, jsonFilter = preSkim(
                 inTree, self.json, self.cut, maxEntries=self.maxEntries, firstEntry=self.firstEntry)
             if self.justcount:
@@ -189,12 +196,15 @@ class PostProcessor:
 
             if fullClone:
                 # no need of a reader (no event loop), but set up the elist if available
+                print("# no need of a reader (no event loop), but set up the elist if available")
                 if elist:
                     inTree.SetEntryList(elist)
             else:
                 # initialize reader
+                print("# initialize reader")
                 inTree = InputTree(inTree, elist)
 
+            print("# prepare output file")
             # prepare output file
             if not self.noOut:
                 outFileName = os.path.join(self.outputDir, os.path.basename(
@@ -204,6 +214,7 @@ class PostProcessor:
                 outFileNames.append(outFileName)
                 if compressionLevel:
                     outFile.SetCompressionAlgorithm(compressionAlgo)
+                print("# prepare output tree")
                 # prepare output tree
                 if self.friend:
                     outTree = FriendOutput(inFile, inTree, outFile)
@@ -225,6 +236,7 @@ class PostProcessor:
                 if self.branchsel:
                     self.branchsel.selectBranches(inTree)
 
+            print("# process events, if needed")
             # process events, if needed
             if not fullClone:
                 eventRange = range(self.firstEntry, self.firstEntry +
@@ -238,6 +250,7 @@ class PostProcessor:
                 nall = nEntries
                 print('Selected %d / %d entries from %s (%.2f%%)' % (outTree.tree().GetEntries(), nall, fname, outTree.tree().GetEntries() / (0.01 * nall) if nall else 0))
 
+            print("# now write the output")
             # now write the output
             if not self.noOut:
                 outTree.write()

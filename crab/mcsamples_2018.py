@@ -74,12 +74,20 @@ data.append({
     'xs': '47.13',
 })
 
+#data.append({
+    #'name': 'ZZ',
+    #'inputDataset': '/ZZ_TuneCP5_13TeV-pythia8/RunIISummer20UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM',
+    #'nEvents': '3907000',
+    #'nFiles': '3',
+#    'xs': '16.523',
+#})
+
 data.append({
     'name': 'ZZ',
-    'inputDataset': '/ZZ_TuneCP5_13TeV-pythia8/RunIISummer20UL18NanoAODv2-106X_upgrade2018_realistic_v15_L1v1-v1/NANOAODSIM',
-    'nEvents': '3907000',
-    'nFiles': '3',
-    'xs': '16.523',
+    'inputDataset': '/ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM',
+    'nEvents': '56886000',
+    'nFiles': '64',
+    'xs': '0.564',
 })
 
 data.append({

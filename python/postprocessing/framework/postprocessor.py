@@ -252,6 +252,7 @@ class PostProcessor:
 
             print("# now write the output")
             # now write the output
+            print("# of entries in outTree: %d"%outTree.tree().GetEntries())
             if not self.noOut:
                 outTree.write()
                 outFile.Close()

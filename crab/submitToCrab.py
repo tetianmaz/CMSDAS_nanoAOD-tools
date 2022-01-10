@@ -9,6 +9,7 @@ with open(infile) as json_file:
    data = json.load(json_file)
    
    for p in data:
+     if "ZZ" in p['name']: 
       f = open("./crabSubmits/"+p['name']+".py","w+")
       
       f.write("from WMCore.Configuration import Configuration\n")
@@ -48,7 +49,7 @@ with open(infile) as json_file:
       #f.write("config.Data.splitting='Automatic'\n")
       f.write("config.Data.splitting = 'FileBased'\n")
       f.write("config.Data.unitsPerJob = 1\n")
-      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/cmsdas_10122021/'\n")
+      f.write("config.Data.outLFNDirBase = '/store/user/fjensen/cmsdas_05012022/'\n")
       f.write("config.Data.publication = False\n")
       f.write("\n")
 
@@ -59,6 +60,6 @@ with open(infile) as json_file:
       f.close()
 
       #actually submit jobs or not
-      os.system("crab submit -c " + f.name)
+#      os.system("crab submit -c " + f.name)
       #break
 

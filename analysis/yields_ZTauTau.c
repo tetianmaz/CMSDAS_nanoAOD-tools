@@ -36,50 +36,64 @@ TFile * makeHists(const TString tag, const double weight=0.)
 {
    std::cout << "makeHists(): " << tag << ", " << weight << std::endl;
 
-   TChain * t = new TChain("Events");
+   TChain * t_events = new TChain("Events");
+   TChain * t = new TChain("Friends");
+   const TString frienddir = "root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_8151201/";
    if (tag=="SingleMuon") {
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018A_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018B_Processed.root");
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018C_Processed.root");
-      //t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/SingleMuon_2018D_Processed.root");
+      t->Add(frienddir+"SingleMuon_2018A_Friend.root");
+      t->Add(frienddir+"SingleMuon_2018B_Friend.root");
+      t->Add(frienddir+"SingleMuon_2018C_Friend.root");
+      t->Add(frienddir+"SingleMuon_2018D_0_Friend.root");
+      t->Add(frienddir+"SingleMuon_2018D_1_Friend.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018A.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018B.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018C.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018D_0.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018D_1.root");
    }
    if (tag=="WJetsToLNu") {
-      t->Add("root://cmseos.fnal.gov///store/user/fojensen/TauTauLongExercise_9085550/WJetsToLNu_Processed.root");
+      t->Add(frienddir+"WJetsToLNu_Friend.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/WJetsToLNu.root");
    }
    if (tag=="TTTo2L2Nu") {
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_0_Processed.root");
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_1_Processed.root");
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_2_Processed.root");
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTTo2L2Nu_3_Processed.root");
+      t->Add(frienddir+"TTTo2L2Nu_Friend.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTTo2L2Nu.root");
    }
    if (tag=="TTToSemiLeptonic") {
-      //t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_0_Processed.root");
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_1_Processed.root");
-      //t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_2_Processed.root");
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/TTToSemiLeptonic_3_Processed.root");
+      t->Add(frienddir+"TTToSemiLeptonic_0_Friend.root");
+      t->Add(frienddir+"TTToSemiLeptonic_1_Friend.root");
+      t->Add(frienddir+"TTToSemiLeptonic_2_Friend.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTToSemiLeptonic_0.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTToSemiLeptonic_1.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTToSemiLeptonic_2.root");
    }
    if (tag=="DYJetsToEEMuMu_M50") {
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/DYJetsToEEMuMu_M50_Processed.root");
+      t->Add(frienddir+"DYJetsToEEMuMu_M50_Friend.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/DYJetsToEEMuMu_M50.root");
    }
    if (tag=="DYJetsToTauTau_M50") {
-      t->Add("root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_9085550/DYJetsToTauTau_M50_Processed.root");
+      t->Add(frienddir+"DYJetsToTauTau_M50_Friend.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/DYJetsToTauTau_M50.root");
    }
-   std::cout << "# of entries in the chain: " << t->GetEntries() << std::endl;
+   std::cout << "# of entries in t: " << t->GetEntries() << std::endl;
+   std::cout << "# of entries in t_events: " << t_events->GetEntries() << std::endl;
+
+   t->AddFriend(t_events);
 
    TCut baseline = "MuTau_HavePair>0";
    baseline = baseline && TCut("(HLT_IsoMu24||HLT_IsoMu27) && Muon_pt[MuTau_MuIdx]>=26. && Muon_tightId[MuTau_MuIdx] && Muon_pfIsoId[MuTau_MuIdx]>=4");
-   //baseline = baseline && TCut("EE_HavePair==0 && MuMu_HavePair==0");
+   baseline = baseline && TCut("EE_HavePair==0 && MuMu_HavePair==0");
    baseline = baseline && TCut("Tau_decayMode[MuTau_TauIdx]!=5 && Tau_decayMode[MuTau_TauIdx]!=6 && Tau_decayMode[MuTau_TauIdx]!=7");
-   baseline = baseline && TCut("Sum$(Electron_pt>=8. && TMath::Abs(Electron_eta)<2.5 && Electron_mvaFall17V2Iso_WP90)==0");
-   baseline = baseline && TCut("Sum$(Muon_pt>=12. && TMath::Abs(Muon_eta)<2.4 && Muon_tightId && Muon_pfIsoId>=4)==1");
+   baseline = baseline && TCut("Sum$(Electron_pt>=12. && TMath::Abs(Electron_eta)<2.5 && Electron_mvaFall17V2Iso_WP90)==0");
+   baseline = baseline && TCut("Sum$(Muon_pt>=8. && TMath::Abs(Muon_eta)<2.4 && Muon_tightId && Muon_pfIsoId>=4)==1");
    baseline = baseline && TCut("MuTau_mT<40.");
-   //baseline = baseline && TCut("JetProducer_nBJetL==0");
+   baseline = baseline && TCut("JetProducer_nBJetL==0");
 
    const TCut regionA = "MuTau_qq==-1 && (32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
    const TCut regionB = "MuTau_qq==-1 && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) && !(32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
    const TCut regionC = "MuTau_qq==+1 && (32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
    const TCut regionD = "MuTau_qq==+1 && (8&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx]) && !(32&Tau_idDeepTau2017v2p1VSjet[MuTau_TauIdx])";
- 
+
    char bufferA[1000], bufferB[1000], bufferC[1000], bufferD[1000];
    if (weight) {
       sprintf(bufferA, "%f * (%s)", weight, TString(baseline && regionA).Data());
@@ -215,11 +229,11 @@ void plotControlRegions()
    int nmc = 5;
    double xsweight[nmc];
    const double lumi = 59725.419;
-   xsweight[0] = lumi * 61334.9 / 81051269.;
+   xsweight[0] = lumi * 61526.7 / 81051269.;
    xsweight[1] = lumi * 87.31 / 145020000.;
    xsweight[2] = lumi * 365.34 / 476408000.;
-   xsweight[3] = lumi * 6025.2 / 197649078.;
-   xsweight[4] = lumi * 6025.2 / 197649078.;
+   xsweight[3] = lumi * 6077.22 / 197649078.;
+   xsweight[4] = lumi * 6077.22 / 197649078.;
  
    TString labels[nmc];
    labels[0] = "W#rightarrowl#nu";

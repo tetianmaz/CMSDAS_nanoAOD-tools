@@ -38,42 +38,42 @@ TFile * makeHists(const TString tag, const double weight=0.)
 
    TChain * t_events = new TChain("Events");
    TChain * t = new TChain("Friends");
-   const TString frienddir = "root://cmseos.fnal.gov//store/user/fojensen/TauTauLongExercise_8151201/";
+   const TString frienddir = "root://cmseos.fnal.gov//store/user/zhangj/TauTauLongExercise_5110845/";
    if (tag=="SingleMuon") {
       t->Add(frienddir+"SingleMuon_2018A_Friend.root");
       t->Add(frienddir+"SingleMuon_2018B_Friend.root");
       t->Add(frienddir+"SingleMuon_2018C_Friend.root");
       t->Add(frienddir+"SingleMuon_2018D_0_Friend.root");
       t->Add(frienddir+"SingleMuon_2018D_1_Friend.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018A.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018B.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018C.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018D_0.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/SingleMuon_2018D_1.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/SingleMuon_2018A.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/SingleMuon_2018B.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/SingleMuon_2018C.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/SingleMuon_2018D_0.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/SingleMuon_2018D_1.root");
    }
    if (tag=="WJetsToLNu") {
       t->Add(frienddir+"WJetsToLNu_Friend.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/WJetsToLNu.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/WJetsToLNu.root");
    }
    if (tag=="TTTo2L2Nu") {
       t->Add(frienddir+"TTTo2L2Nu_Friend.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTTo2L2Nu.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/TTTo2L2Nu.root");
    }
    if (tag=="TTToSemiLeptonic") {
       t->Add(frienddir+"TTToSemiLeptonic_0_Friend.root");
       t->Add(frienddir+"TTToSemiLeptonic_1_Friend.root");
       t->Add(frienddir+"TTToSemiLeptonic_2_Friend.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTToSemiLeptonic_0.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTToSemiLeptonic_1.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/TTToSemiLeptonic_2.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/TTToSemiLeptonic_0.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/TTToSemiLeptonic_1.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/TTToSemiLeptonic_2.root");
    }
    if (tag=="DYJetsToEEMuMu_M50") {
       t->Add(frienddir+"DYJetsToEEMuMu_M50_Friend.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/DYJetsToEEMuMu_M50.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/DYJetsToEEMuMu_M50.root");
    }
    if (tag=="DYJetsToTauTau_M50") {
       t->Add(frienddir+"DYJetsToTauTau_M50_Friend.root");
-      t_events->Add("root://cmseos.fnal.gov//store/user/fojensen/cmsdas_05012022/DYJetsToTauTau_M50.root");
+      t_events->Add("root://cmseos.fnal.gov//store/user/cmsdas/2023/long_exercises/ZTauTau/DYJetsToTauTau_M50.root");
    }
    std::cout << "# of entries in t: " << t->GetEntries() << std::endl;
    std::cout << "# of entries in t_events: " << t_events->GetEntries() << std::endl;
@@ -140,181 +140,6 @@ TFile * makeHists(const TString tag, const double weight=0.)
    return f_out;
 }
 
-TFile * makeQCDHists()
-{
-   std::cout << "QCD" << std::endl;
-   TFile * f_data = TFile::Open("./outputHists/SingleMuon.root");
-   //TH1D * data_A = (TH1D*)f_data->Get("h_A"); nonono
-   TH1D * data_B = (TH1D*)f_data->Get("h_B");
-   TH1D * data_C = (TH1D*)f_data->Get("h_C");
-   TH1D * data_D = (TH1D*)f_data->Get("h_D");
-
-   const int nmc = 5;
-   TString mctags[nmc];
-   mctags[0] = "WJetsToLNu";
-   mctags[1] = "TTTo2L2Nu";
-   mctags[2] = "TTToSemiLeptonic";
-   mctags[3] = "DYJetsToEEMuMu_M50";
-   mctags[4] = "DYJetsToTauTau_M50";
-
-   TH1D *h_A[nmc], *h_B[nmc], *h_C[nmc], *h_D[nmc];
-   for (int i = 0; i < nmc; ++i) {
-      char fname[100];
-      sprintf(fname, "./outputHists/%s.root", mctags[i].Data());
-      TFile * f = TFile::Open(fname);
-      h_A[i] = (TH1D*)f->Get("h_A");
-      h_B[i] = (TH1D*)f->Get("h_B");
-      h_C[i] = (TH1D*)f->Get("h_C");
-      h_D[i] = (TH1D*)f->Get("h_D");
-   }
-
-   for (int i = 0; i < nmc; ++i) {
-      data_B->Add(h_B[i], -1.);
-      data_C->Add(h_C[i], -1.);
-      data_D->Add(h_D[i], -1.);
-   }
-
-   double B, Berr;
-   B = data_B->IntegralAndError(1, data_B->GetNbinsX()+1, Berr);
-   double C, Cerr;
-   C = data_C->IntegralAndError(1, data_C->GetNbinsX()+1, Cerr);
-   double D, Derr;
-   D = data_D->IntegralAndError(1, data_D->GetNbinsX()+1, Derr);
-   const double CoD = C/D;
-   const double CoDerr = CoD * sqrt((Berr/B)*(Berr/B)+(Cerr/C)*(Cerr/C));
-   const double BCoD = B * CoD;
-   const double errBCoD = BCoD * sqrt((Berr/B)*(Berr/B)+(CoDerr/CoD)*(CoDerr/CoD));
-   std::cout << "inclusive transfer factor: " << CoD << " +- " << CoDerr << std::endl;
-
-   TH1D * h_CoD = (TH1D*)data_C->Clone("h_CoD");
-   h_CoD->Divide(data_D);
-
-   TH1D * h_QCD = (TH1D*)data_B->Clone("h_QCD");
-   //h_QCD->Scale(CoD);
-   h_QCD->Multiply(h_CoD);
- 
-   TCanvas * c = new TCanvas("c_makeQCDHists", "c_makeQCDHists", 400, 400);
-   h_CoD->Draw("PE");
-   h_CoD->GetYaxis()->SetTitle("C / D");
-   h_CoD->SetStats(0);
-   h_CoD->SetMinimum(0.);
-   //h_CoD->SetMaximum(0.65);
-   h_CoD->SetMarkerStyle(20);
-   c->SaveAs("./plots/CoD.pdf");
- 
-   TFile * f_qcd = new TFile("./outputHists/QCD.root", "RECREATE");
-   h_QCD->Write("h_A");
-   data_B->Write("h_B");
-   data_C->Write("h_C");
-   data_D->Write("h_D");
-   h_CoD->Write("h_CoD");
-   f_qcd->Close();
-   return f_qcd;
-}
-
-void plotControlRegions()
-{
-   std::cout << "plotControlRegions()" << std::endl;
-   const double ymin = 1.e2;
-   const double ymax = 1.e6;
-
-   TFile *f_SingleMuon = TFile::Open("./outputHists/SingleMuon.root");
-   TH1D * h_SingleMuon_B = (TH1D*)f_SingleMuon->Get("h_B");
-   TH1D * h_SingleMuon_C = (TH1D*)f_SingleMuon->Get("h_C");
-   TH1D * h_SingleMuon_D = (TH1D*)f_SingleMuon->Get("h_D");
-   h_SingleMuon_B->SetMarkerStyle(20);
-   h_SingleMuon_C->SetMarkerStyle(20);
-   h_SingleMuon_D->SetMarkerStyle(20);
-
-   int nmc = 5;
-   double xsweight[nmc];
-   const double lumi = 59725.419;
-   xsweight[0] = lumi * 61526.7 / 81051269.;
-   xsweight[1] = lumi * 87.31 / 145020000.;
-   xsweight[2] = lumi * 365.34 / 476408000.;
-   xsweight[3] = lumi * 6077.22 / 197649078.;
-   xsweight[4] = lumi * 6077.22 / 197649078.;
- 
-   TString labels[nmc];
-   labels[0] = "W#rightarrowl#nu";
-   labels[1] = "t#bar{t}#rightarrow2l2#nu";
-   labels[2] = "t#bar{t}#rightarrow1l1#nu2q";
-   labels[3] = "Z#rightarrowee,#mu#mu";
-   labels[4] = "Z#rightarrow#tau#tau";
- 
-   TString mctags[nmc];
-   mctags[0] = "WJetsToLNu";
-   mctags[1] = "TTTo2L2Nu";
-   mctags[2] = "TTToSemiLeptonic";
-   mctags[3] = "DYJetsToEEMuMu_M50";
-   mctags[4] = "DYJetsToTauTau_M50";
-
-   int colz[nmc];
-   colz[0] = 5;
-   colz[1] = 6;
-   colz[2] = 7;
-   colz[3] = 8;
-   colz[4] = 9;
-
-   TH1D *h_mc_B[nmc], *h_mc_C[nmc], *h_mc_D[nmc];
-   for (int i = 0; i < nmc; ++i) {
-      TFile * f = TFile::Open("./outputHists/"+mctags[i]+".root");
-      h_mc_B[i] = (TH1D*)f->Get("h_B");
-      h_mc_C[i] = (TH1D*)f->Get("h_C");
-      h_mc_D[i] = (TH1D*)f->Get("h_D");
-      h_mc_B[i]->SetFillColor(colz[i]);
-      h_mc_C[i]->SetFillColor(colz[i]);
-      h_mc_D[i]->SetFillColor(colz[i]);
-   }
-
-   THStack * s_B = new THStack("s_B", "");
-   s_B->SetTitle("B;#mu+#tau_{h} visible mass [GeV];events / 10 GeV");
-   for (int i = 0; i < nmc; ++i) s_B->Add(h_mc_B[i]);
-
-   THStack * s_C = new THStack("s_C", "");
-   s_C->SetTitle("C;#mu+#tau_{h} visible mass [GeV];events / 10 GeV");
-   for (int i = 0; i < nmc; ++i) s_C->Add(h_mc_C[i]);
-
-   THStack * s_D = new THStack("s_D", "");
-   s_D->SetTitle("D;#mu+#tau_{h} visible mass [GeV];events / 10 GeV");
-   for (int i = 0; i < nmc; ++i) s_D->Add(h_mc_D[i]);
-
-   TLegend * l = new TLegend(0.225, 0.75, 0.875, 0.875);
-   l->SetBorderSize(0);
-   l->SetNColumns(3);
-   for (int i = 0; i < nmc; ++i) l->AddEntry(h_mc_B[i], labels[i], "F");
-   l->AddEntry(h_SingleMuon_B, "data", "P");
-
-   TCanvas * c = new TCanvas("c", "c", 800, 800);
-   c->Divide(2,2);
-
-   TPad * p2 = (TPad*)c->cd(2);
-   s_B->Draw("HIST");
-   h_SingleMuon_B->Draw("PE, SAME"); 
-   p2->SetLogy();
-   s_B->SetMinimum(ymin);
-   s_B->SetMaximum(ymax);
-   l->Draw();
-
-   TPad * p3 = (TPad*)c->cd(3);
-   s_C->Draw("HIST");
-   h_SingleMuon_C->Draw("PE, SAME");
-   p3->SetLogy();
-   s_C->SetMinimum(ymin);
-   s_C->SetMaximum(ymax);
-   l->Draw();
-
-   TPad * p4 = (TPad*)c->cd(4);
-   s_D->Draw("HIST");
-   h_SingleMuon_C->Draw("PE, SAME");
-   p4->SetLogy();
-   s_D->SetMinimum(ymin);
-   s_D->SetMaximum(ymax);
-   l->Draw();
-
-   c->SaveAs("./plots/cr.pdf");
-}
-
 void yields_ZTauTau()
 {
    const double ymin = 1.e2;
@@ -354,65 +179,7 @@ void yields_ZTauTau()
    TFile *f_SingleMuon = TFile::Open("./outputHists/SingleMuon.root");
    TH1D * h_SingleMuon = (TH1D*)f_SingleMuon->Get("h_A");
    h_SingleMuon->SetMarkerStyle(20);
-   
+  
    for (int i = 0; i < nmc; ++i) makeHists(mctags[i], xsweight[i]);
-   double samplesum = 0.;
-
-   TH1D * h[nmc];
-   for (int i = 0; i < nmc; ++i) {
-      char fname[100];
-      sprintf(fname, "./outputHists/%s.root", mctags[i].Data());
-      TFile * f = TFile::Open(fname);
-      h[i] = (TH1D*)f->Get("h_A");
-      h[i]->SetFillColor(colz[i]);
-      samplesum += h[i]->Integral();
-   }
-
-   makeQCDHists();
-   TFile * f_QCD = TFile::Open("./outputHists/QCD.root");
-   TH1D * h_QCD = (TH1D*)f_QCD->Get("h_A");
-   samplesum += h_QCD->Integral();
-   h_QCD->SetFillColor(4);
-
-   for (int i = 0; i < nmc; ++i) {
-      std::cout << mctags[i] << std::endl;
-      std::cout << "   Integral(): " << h[i]->Integral() << "; fraction of total:" << h[i]->Integral()/samplesum << std::endl;
-      std::cout << "   GetEntries(): " << h[i]->GetEntries() << std::endl;
-   }
-   std::cout << "QCD" << std::endl;
-   std::cout << "   Integral(): " << h_QCD->Integral() << "; fraction of total: " << h_QCD->Integral()/samplesum << std::endl;
-   std::cout << "   GetEntries(): " << h_QCD->GetEntries() << std::endl;
- 
-   THStack * s = new THStack("s", "");
-   s->SetTitle(h_SingleMuon->GetTitle());
-   for (int i = 0; i < nmc; ++i) {
-      s->Add(h[i]);
-   }
-   s->Add(h_QCD);
-
-   TCanvas * c = new TCanvas("c_yieldsZTauTau", "c_yieldsZTauTau", 400, 400);
-   h_SingleMuon->SetMinimum(ymin);
-   h_SingleMuon->SetMaximum(ymax);
-   h_SingleMuon->Draw("P, E");
-   h_SingleMuon->SetStats(0);
-   h_SingleMuon->SetMinimum(ymin);
-   h_SingleMuon->SetMaximum(ymax);
-   c->SetLogy();
-   s->Draw("HIST, SAME");
-   s->SetMinimum(ymin);
-   s->SetMaximum(ymax);
-   h_SingleMuon->Draw("P, E, SAME");
-
-   TLegend * l = new TLegend(0.225, 0.75, 0.875, 0.875);
-   l->SetBorderSize(0);
-   l->SetNColumns(3);
-   for (int i = 0; i < nmc; ++i) l->AddEntry(h[i], labels[i], "F");
-   l->AddEntry(h_QCD, "multijet", "F");
-   l->AddEntry(h_SingleMuon, "data", "P");
-   l->Draw();
-
-   c->SaveAs("./plots/ZMuTauVisibleMass.pdf");
-
-   plotControlRegions();
 }
 

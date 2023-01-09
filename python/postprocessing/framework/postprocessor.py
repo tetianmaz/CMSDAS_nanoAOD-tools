@@ -217,8 +217,10 @@ class PostProcessor:
                 print("# prepare output tree")
                 # prepare output tree
                 if self.friend:
+                    print("DEBUG1")
                     outTree = FriendOutput(inFile, inTree, outFile)
                 else:
+                    print("DEBUG2")
                     outTree = FullOutput(
                         inFile,
                         inTree,
@@ -231,6 +233,7 @@ class PostProcessor:
                         jsonFilter=jsonFilter,
                         provenance=self.provenance)
             else:
+                print("DEBUG3")
                 outFile = None
                 outTree = None
                 if self.branchsel:
@@ -252,6 +255,7 @@ class PostProcessor:
 
             print("# now write the output")
             # now write the output
+            print(outTree)
             print("# of entries in outTree: %d"%outTree.tree().GetEntries())
             if not self.noOut:
                 outTree.write()

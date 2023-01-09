@@ -39,7 +39,7 @@ class ExampleAnalysis(Module):
 
 
 preselection = "Jet_pt[0] > 250"
-files = [" root://cms-xrd-global.cern.ch//store/mc/RunIISummer16NanoAOD/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/40000/2CE738F9-C212-E811-BD0E-EC0D9A8222CE.root"]
+files = ["root://cmseos.fnal.gov//store/user/cmsdas/2023/short_exercises/Tau/DYJetsToLL__7B7D90CB-14EF-B749-B4D7-7C413FE3CCC1.root"]
 p = PostProcessor(".", files, cut=preselection, branchsel=None, modules=[
-                  ExampleAnalysis()], noOut=True, histFileName="histOut.root", histDirName="plots")
+                  ExampleAnalysis()], noOut=False, histFileName="histOut.root", histDirName="plots")
 p.run()

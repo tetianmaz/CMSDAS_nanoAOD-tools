@@ -52,17 +52,18 @@ if year==2016:
     cut_Flag = cut_Flag16
 elif year==2017 or year==2018:
     cut_Flag = cut_Flag1718
-cut_ = "("+ cut_ETau + " || " + cut_MuTau + " || " + cut_TauTau + " || " + cut_Tau + " || " + cut_TauMET + ") &&" + cut_Flag
+cut_ = "("+ cut_ETau + " || " + cut_MuTau + " || " + cut_TauTau + " || " + cut_Tau + " || " + cut_TauMET + ") && " + cut_Flag
 #print cut_
 
 from PhysicsTools.NanoAODTools.postprocessing.examples.ZProducer import ZProducerConstr
-from PhysicsTools.NanoAODTools.postprocessing.examples.ETauProducer import ETauProducerConstr
+#from PhysicsTools.NanoAODTools.postprocessing.examples.ETauProducer import ETauProducerConstr
 from PhysicsTools.NanoAODTools.postprocessing.examples.MuTauProducer import MuTauProducerConstr
-from PhysicsTools.NanoAODTools.postprocessing.examples.TauTauProducer import TauTauProducerConstr
+#from PhysicsTools.NanoAODTools.postprocessing.examples.TauTauProducer import TauTauProducerConstr
 from PhysicsTools.NanoAODTools.postprocessing.examples.JetProducer import JetProducerConstr
 
 applyZVeto=False
-modules_ = [ZProducerConstr(applyZVeto), ETauProducerConstr(), MuTauProducerConstr(), TauTauProducerConstr(), JetProducerConstr(year)]
+#modules_ = [ZProducerConstr(applyZVeto), ETauProducerConstr(), MuTauProducerConstr(), TauTauProducerConstr(), JetProducerConstr(year)]
+modules_ = [ZProducerConstr(applyZVeto), MuTauProducerConstr(), JetProducerConstr(year)]
 #modules_ = [ZProducerConstr(applyZVeto)]
 #modules_ = [ETauProducerConstr()]
 
@@ -75,13 +76,14 @@ modules_ = [ZProducerConstr(applyZVeto), ETauProducerConstr(), MuTauProducerCons
 
 p=PostProcessor(
     outputDir = "./",
-    inputFiles = inputFiles(),
-    #inputFiles = [sys.argv[1]],
+    #inputFiles = inputFiles(),
+    inputFiles = [sys.argv[1]],
     #inputFiles = testfile,
-    cut = cut_,
-    #modules = modules_,
+    #cut = cut_,
+    cut = "0==0",
+    modules = modules_,
     #maxEntries = 100000,
-    #friend = True, #Speed increase when True!
+    friend = True, #Speed increase when True!
     provenance = True,
     fwkJobReport = True,
     #jsonInput = runsAndLumis(),

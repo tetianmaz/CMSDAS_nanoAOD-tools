@@ -16,6 +16,13 @@ class MuTauProducer(Module):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
+        self.out.branch("MuTau_HavePair", "I")
+        self.out.branch("MuTau_qq", "I")    ##same or opposite charge
+        self.out.branch("MuTau_MuIdx", "I")   ##index of the selected muon
+        self.out.branch("MuTau_TauIdx", "I")   ##index of the selected tau
+        self.out.branch("MuTau_mT", "F")
+        self.out.branch("MuTau_Mass", "F")
+        self.out.branch("MuTau_Pt", "F")
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
     def analyze(self, event):

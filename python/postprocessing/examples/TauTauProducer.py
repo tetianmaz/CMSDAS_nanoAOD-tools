@@ -16,6 +16,13 @@ class TauTauProducer(Module):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
+        self.out.branch("TauTau_HavePair", "I")
+        self.out.branch("TauTau_qq", "I")    ##same or opposite charge
+        self.out.branch("TauTau_Tau1Idx", "I")   ##index of the selected tau1
+        self.out.branch("TauTau_Tau2Idx", "I")   ##index of the selected tau2
+        #self.out.branch("TauTau_mT", "F")
+        self.out.branch("TauTau_Mass", "F")
+        self.out.branch("TauTau_Pt", "F")
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
     def analyze(self, event):

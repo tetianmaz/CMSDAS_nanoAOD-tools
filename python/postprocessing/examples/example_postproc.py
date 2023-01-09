@@ -39,8 +39,8 @@ p = PostProcessor(
     #inputFiles = [sys.argv[1]],
     cut = "Sum$(Muon_pt>=12. && TMath::Abs(Muon_eta)<2.4 && Muon_tightId && Muon_pfIsoId>=4)==1",
     #modules = [exampleModuleConstr()],
-    modules = [JetProducerConstr(2018)], 
-    #modules = [ZProducerConstr(False), MuTauProducerConstr(), JetProducerConstr(2018)],
+    #modules = [JetProducerConstr(2018)], 
+    modules = [ZProducerConstr(False), MuTauProducerConstr(), JetProducerConstr(2018)],
     friend = True,
     provenance=True,
     haddFileName = "tree.root"

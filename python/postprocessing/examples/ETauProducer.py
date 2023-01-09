@@ -16,6 +16,13 @@ class ETauProducer(Module):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
+        self.out.branch("ETau_HavePair", "I")
+        self.out.branch("ETau_qq", "I")    ##same or opposite charge
+        self.out.branch("ETau_EIdx", "I")   ##index of the selected electron
+        self.out.branch("ETau_TauIdx", "I")   ##index of the selected tau
+        self.out.branch("ETau_mT", "F")
+        self.out.branch("ETau_Mass", "F")
+        self.out.branch("ETau_Pt", "F")
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
     def analyze(self, event):
